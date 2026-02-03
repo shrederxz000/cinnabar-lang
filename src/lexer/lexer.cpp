@@ -31,7 +31,7 @@ namespace cxz::lexer{
         }
         
     }
-    char Lexer::char_at(size_t jmp = 0){
+    char Lexer::char_at(size_t jmp){
         if(cursor_ + jmp < code_length_){
             return code_[cursor_ + jmp];
         }else{
@@ -210,7 +210,7 @@ namespace cxz::lexer{
     }
 
     // simple token maker
-    token::Token Lexer::emit(token::TokenKind kind, size_t len = 1){
+    token::Token Lexer::emit(token::TokenKind kind, size_t len){
         pos::Pos pos = pos_;
         token::Token result = token::Token(kind, pos); 
         for (int i = 0; i < len; i++){advance();}
@@ -222,48 +222,49 @@ namespace cxz::lexer{
         std::string_view filepath, 
         std::string_view code
     ){
+        reset(filepath, code);
         std::vector<token::Token> tokens;
         while (current_ch_ != '\0' && cursor_ < code_length_){
             switch (current_ch_){
             case '+':
-                tokens.push_back(emit(token::TokenKind::PLUS));
+                tokens.push_back(emit(token::TokenKind::PLUS,1));
                 break;
             case '-':
-                tokens.push_back(emit(token::TokenKind::MINUS));
+                tokens.push_back(emit(token::TokenKind::MINUS,1));
                 break;
             case '/':
                 if (char_at(1) == '*' || char_at(1) == '/'){
                     skip_comments();
                 }else{
-                tokens.push_back(emit(token::TokenKind::SLASH));
+                tokens.push_back(emit(token::TokenKind::SLASH,1));
                 }
                 break;
             case '*':
-                tokens.push_back(emit(token::TokenKind::STAR));
+                tokens.push_back(emit(token::TokenKind::STAR,1));
                 break;
             case '(':
-                tokens.push_back(emit(token::TokenKind::RPAR));
+                tokens.push_back(emit(token::TokenKind::RPAR,1));
                 break;
             case ')':
-                tokens.push_back(emit(token::TokenKind::LPAR));
+                tokens.push_back(emit(token::TokenKind::LPAR,1));
                 break;
             case '[':
-                tokens.push_back(emit(token::TokenKind::LBRACKET));
+                tokens.push_back(emit(token::TokenKind::LBRACKET,1));
                 break;
             case ']':
-                tokens.push_back(emit(token::TokenKind::RBRACKET));
+                tokens.push_back(emit(token::TokenKind::RBRACKET,1));
                 break;
             case '{':
-                tokens.push_back(emit(token::TokenKind::LBRACE));
+                tokens.push_back(emit(token::TokenKind::LBRACE,1));
                 break;
             case '}':
-                tokens.push_back(emit(token::TokenKind::RBRACE));
+                tokens.push_back(emit(token::TokenKind::RBRACE,1));
                 break;
             case ':':
-                tokens.push_back(emit(token::TokenKind::COLON));
+                tokens.push_back(emit(token::TokenKind::COLON,1));
                 break;
             case ';':
-                tokens.push_back(emit(token::TokenKind::SEMICOLON));
+                tokens.push_back(emit(token::TokenKind::SEMICOLON,1));
                 break;
             case '\'':
                 tokens.push_back(scan_char());
@@ -280,9 +281,12 @@ namespace cxz::lexer{
                 }
                 else if (isdigit(current_ch_)){
                     tokens.push_back(scan_number());
+                }else {
+                    throw std::runtime_error("error: unexpected syntax");
                 }
             }
         }
-        
+        emit(token::TokenKind::Eof);
+        return tokens;
     }
 }
