@@ -182,20 +182,27 @@ namespace cxz::lexer{
         > keywords = {
             {"if",     token::TokenKind::IF},
             {"else",   token::TokenKind::ELSE},
-            {"while",  token::TokenKind::WHILE},
-            {"for",    token::TokenKind::FOR},
-            {"return", token::TokenKind::RETURN},
-            {"let",    token::TokenKind::LET},
-            {"const",    token::TokenKind::CONST},
-            {"def",    token::TokenKind::DEF},
             {"switch", token::TokenKind::SWITCH},
             {"case",   token::TokenKind::CASE},
-            {"float",  token::TokenKind::FLOAT},
+            {"let",    token::TokenKind::LET},
+            {"const",  token::TokenKind::CONST},
+            {"for",    token::TokenKind::FOR},
+            {"while",  token::TokenKind::WHILE},
+            {"break",  token::TokenKind::BREAK},
+            {"continue",token::TokenKind::CONTINUE},
+            {"def",    token::TokenKind::DEF},
+            {"return", token::TokenKind::RETURN},
             {"int",    token::TokenKind::INT},
+            {"float",  token::TokenKind::FLOAT},
             {"str",    token::TokenKind::STR},
             {"char",   token::TokenKind::CHAR},
             {"print",  token::TokenKind::PRINT},
-            {"print",  token::TokenKind::PRINT},
+            {"static",  token::TokenKind::STATIC},
+            {"pub",  token::TokenKind::PUBLIC},
+            {"struct",  token::TokenKind::STRUCT},
+            {"scope",  token::TokenKind::SCOPE},
+            {"del",  token::TokenKind::DELETE},
+            
         };
 
         auto it = keywords.find(value);
@@ -223,50 +230,88 @@ namespace cxz::lexer{
         std::vector<token::Token> tokens;
         while (current_ch_ != '\0' && cursor_ < code_length_){
             switch (current_ch_){
-            case '+':tokens.push_back(emit(token::TokenKind::PLUS,1));break;
-            case '-':tokens.push_back(emit(token::TokenKind::MINUS,1));break;
-            case '/':
-                if (char_at(1) == '*' || char_at(1) == '/'){skip_comments();}
-                else{tokens.push_back(emit(token::TokenKind::SLASH,1));}break;
+                //TODO:сделать по-нормальному все token kinds
+                case '+':
+                    if (char_at(1) == '='){tokens.push_back(emit(token::TokenKind::PLUS,2));}
+                    else{tokens.push_back(emit(token::TokenKind::PLUS,1));}break;
+                case '-':
+                    if (char_at(1) == '='){tokens.push_back(emit(token::TokenKind::MINUS,2));}
+                    else{tokens.push_back(emit(token::TokenKind::MINUS,1));}break;
+                case '/':
+                    if (char_at(1) == '*' || char_at(1) == '/'){skip_comments();}
+                    else if (char_at(1) == '='){tokens.push_back(emit(token::TokenKind::SLASH,2));}
+                    else{tokens.push_back(emit(token::TokenKind::SLASH,1));}break;
 
-            case '*':tokens.push_back(emit(token::TokenKind::STAR,1));break;
-            case '@':tokens.push_back(emit(token::TokenKind::AT,1));break;
-            case '!':tokens.push_back(emit(token::TokenKind::BANG,1));break;
-            case '~':tokens.push_back(emit(token::TokenKind::TILDE,1));break;
-            case '?':tokens.push_back(emit(token::TokenKind::QUESTION,1));break;
-            case '^':tokens.push_back(emit(token::TokenKind::CARET,1));break;
-            case '&':tokens.push_back(emit(token::TokenKind::AMPERSAND,1));break;
-            case '%':tokens.push_back(emit(token::TokenKind::PERCENT,1));break;
-            case '#':tokens.push_back(emit(token::TokenKind::HASH,1));break;
-            case '$':tokens.push_back(emit(token::TokenKind::DOLLAR,1));break;
+                case '*':
+                    if (char_at(1) == '='){tokens.push_back(emit(token::TokenKind::STAR,2));}
+                    else if (char_at(1) == '*'){tokens.push_back(emit(token::TokenKind::STAR,2));}
+                    else{tokens.push_back(emit(token::TokenKind::STAR,1));}break;
 
-            case '(':tokens.push_back(emit(token::TokenKind::RPAR,1));break;
-            case ')':tokens.push_back(emit(token::TokenKind::LPAR,1));break;
-            case '[':tokens.push_back(emit(token::TokenKind::LBRACKET,1));break;
-            case ']':tokens.push_back(emit(token::TokenKind::RBRACKET,1));break;
-            case '{':tokens.push_back(emit(token::TokenKind::LBRACE,1));break;
-            case '}':tokens.push_back(emit(token::TokenKind::RBRACE,1));break;
-            case ':':tokens.push_back(emit(token::TokenKind::COLON,1));break;
-            case ';':tokens.push_back(emit(token::TokenKind::SEMICOLON,1));break;
-            case '.':tokens.push_back(emit(token::TokenKind::DOT,1));break;
-            case '>':tokens.push_back(emit(token::TokenKind::LT,1));break;
-            case '<':tokens.push_back(emit(token::TokenKind::GT,1));break;
-            case ',':tokens.push_back(emit(token::TokenKind::COMMA,1));break;
+                case '@':tokens.push_back(emit(token::TokenKind::AT,1));break;
+                case '!':tokens.push_back(emit(token::TokenKind::BANG,1));break;
+                case '~':tokens.push_back(emit(token::TokenKind::TILDE,1));break;
+                case '?':tokens.push_back(emit(token::TokenKind::QUESTION,1));break;
+                case '^':tokens.push_back(emit(token::TokenKind::CARET,1));break;
 
-            case '\'':tokens.push_back(scan_char());break;
-            case '"':tokens.push_back(scan_string());break;
-            default:
-                if(isspace(current_ch_)){
-                    skip_whitespace();
-                }
-                else if(isalpha(current_ch_) || current_ch_ == '_'){
-                    tokens.push_back(scan_id_or_keyword());
-                }
-                else if (isdigit(current_ch_)){
-                    tokens.push_back(scan_number());
-                }else {
-                    throw std::runtime_error("error: unexpected syntax");
-                }
+                case '&':
+                    if (char_at(1) == '&'){tokens.push_back(emit(token::TokenKind::AMPERSAND,2));}
+                    else{tokens.push_back(emit(token::TokenKind::AMPERSAND,1));}break;
+
+                case '%':
+                    if (char_at(1) == '='){tokens.push_back(emit(token::TokenKind::PERCENT,2));}
+                    else{tokens.push_back(emit(token::TokenKind::PERCENT,1));}break;
+
+                case '#':tokens.push_back(emit(token::TokenKind::HASH,1));break;
+                case '$':tokens.push_back(emit(token::TokenKind::DOLLAR,1));break;
+
+                case '|':
+                    if (char_at(1) == '|'){tokens.push_back(emit(token::TokenKind::PIPE,2));}
+                    else{tokens.push_back(emit(token::TokenKind::PIPE,1));}break;
+
+                case '(':tokens.push_back(emit(token::TokenKind::RPAR,1));break;
+                case ')':tokens.push_back(emit(token::TokenKind::LPAR,1));break;
+                case '[':tokens.push_back(emit(token::TokenKind::LBRACKET,1));break;
+                case ']':tokens.push_back(emit(token::TokenKind::RBRACKET,1));break;
+                case '{':tokens.push_back(emit(token::TokenKind::LBRACE,1));break;
+                case '}':tokens.push_back(emit(token::TokenKind::RBRACE,1));break;
+
+                case ':':
+                    if (char_at(1) == ':'){tokens.push_back(emit(token::TokenKind::COLON,2));}
+                    else{tokens.push_back(emit(token::TokenKind::COLON,1));}break;
+
+                case ';':tokens.push_back(emit(token::TokenKind::SEMICOLON,1));break;
+
+                case '.':
+                    if (char_at(1) == '.'){tokens.push_back(emit(token::TokenKind::DOT,2));}
+                    else if (char_at(1) == '.' && char_at(2) == '.'){tokens.push_back(emit(token::TokenKind::DOT,3));}
+                    else{tokens.push_back(emit(token::TokenKind::DOT,1));}break;
+
+                case '>':
+                    if (char_at(1) == '='){tokens.push_back(emit(token::TokenKind::GT,2));}
+                    else if (char_at(1) == '>'){tokens.push_back(emit(token::TokenKind::GT,2));}
+                    else{tokens.push_back(emit(token::TokenKind::GT,1));}break;
+
+                case '<':
+                    if (char_at(1) == '='){tokens.push_back(emit(token::TokenKind::LT,2));}
+                    else if (char_at(1) == '<'){tokens.push_back(emit(token::TokenKind::LT,2));}
+                    else{tokens.push_back(emit(token::TokenKind::LT,1));}break;
+
+                case ',':tokens.push_back(emit(token::TokenKind::COMMA,1));break;
+
+                case '\'':tokens.push_back(scan_char());break;
+                case '"':tokens.push_back(scan_string());break;
+                default:
+                    if(isspace(current_ch_)){
+                        skip_whitespace();
+                    }
+                    else if(isalpha(current_ch_) || current_ch_ == '_'){
+                        tokens.push_back(scan_id_or_keyword());
+                    }
+                    else if (isdigit(current_ch_)){
+                        tokens.push_back(scan_number());
+                    }else {
+                        throw std::runtime_error("error: unexpected syntax");
+                    }
             }
         }
         emit(token::TokenKind::Eof);

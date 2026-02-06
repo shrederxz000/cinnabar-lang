@@ -2,6 +2,7 @@
 #pragma once
 #include "variant"
 #include "utils/pos.hpp"
+#include <cstdint>
 namespace cxz::token {
 enum class TokenKind{
     // operators
@@ -57,9 +58,7 @@ enum class TokenKind{
     CHAR,
     PRINT,
     STATIC,
-    PRIVATE,
     PUBLIC,
-    PROTECTED,
     STRUCT,
     SCOPE,
     ASYNC,
@@ -125,10 +124,8 @@ enum class TokenKind{
         case TokenKind::STR: return "STR";
         case TokenKind::CHAR: return "CHAR";
         case TokenKind::PRINT: return "PRINT";
-        case TokenKind::STATIC: return "STATIC";
-        case TokenKind::PRIVATE: return "PRIVATE";
+        case TokenKind::STATIC: return "STATIC"; 
         case TokenKind::PUBLIC: return "PUBLIC";
-        case TokenKind::PROTECTED: return "PROTECTED";
         case TokenKind::STRUCT: return "STRUCT";
         case TokenKind::SCOPE: return "SCOPE";
         case TokenKind::ASYNC: return "ASYNC";
@@ -147,7 +144,7 @@ enum class TokenKind{
 
     using TokenValue = std::variant<
     std::monostate,
-    int,
+    int64_t,
     double,
     std::string,
     char
