@@ -49,11 +49,7 @@ namespace cxz::lexer{
             while (current_ch_ != '\n' && current_ch_ != '\0'){advance();}
         }else if (current_ch_ == '*'){ 
             advance(); 
-            while (current_ch_ != '\0'){ 
-                /* 
-                * TODO: implements error message 
-                * if comment block not closed 
-                */
+            while (current_ch_ != '\0'){
                 if (current_ch_ == '*' && char_at(1) == '/'){
                     advance(); 
                     advance(); 
@@ -184,21 +180,22 @@ namespace cxz::lexer{
             std::string, 
             token::TokenKind
         > keywords = {
-            {"if",     token::TokenKind::KEYWORD},
-            {"else",   token::TokenKind::KEYWORD},
-            {"while",  token::TokenKind::KEYWORD},
-            {"for",    token::TokenKind::KEYWORD},
-            {"return", token::TokenKind::KEYWORD},
-            {"let",    token::TokenKind::KEYWORD},
-            {"def",    token::TokenKind::KEYWORD},
-            {"elif",   token::TokenKind::KEYWORD},
-            {"switch", token::TokenKind::KEYWORD},
-            {"case",   token::TokenKind::KEYWORD},
-            {"float",  token::TokenKind::KEYWORD},
-            {"int",    token::TokenKind::KEYWORD},
-            {"str",    token::TokenKind::KEYWORD},
-            {"char",   token::TokenKind::KEYWORD},
-            {"print",  token::TokenKind::KEYWORD},
+            {"if",     token::TokenKind::IF},
+            {"else",   token::TokenKind::ELSE},
+            {"while",  token::TokenKind::WHILE},
+            {"for",    token::TokenKind::FOR},
+            {"return", token::TokenKind::RETURN},
+            {"let",    token::TokenKind::LET},
+            {"const",    token::TokenKind::CONST},
+            {"def",    token::TokenKind::DEF},
+            {"switch", token::TokenKind::SWITCH},
+            {"case",   token::TokenKind::CASE},
+            {"float",  token::TokenKind::FLOAT},
+            {"int",    token::TokenKind::INT},
+            {"str",    token::TokenKind::STR},
+            {"char",   token::TokenKind::CHAR},
+            {"print",  token::TokenKind::PRINT},
+            {"print",  token::TokenKind::PRINT},
         };
 
         auto it = keywords.find(value);
@@ -226,52 +223,38 @@ namespace cxz::lexer{
         std::vector<token::Token> tokens;
         while (current_ch_ != '\0' && cursor_ < code_length_){
             switch (current_ch_){
-            case '+':
-                tokens.push_back(emit(token::TokenKind::PLUS,1));
-                break;
-            case '-':
-                tokens.push_back(emit(token::TokenKind::MINUS,1));
-                break;
+            case '+':tokens.push_back(emit(token::TokenKind::PLUS,1));break;
+            case '-':tokens.push_back(emit(token::TokenKind::MINUS,1));break;
             case '/':
-                if (char_at(1) == '*' || char_at(1) == '/'){
-                    skip_comments();
-                }else{
-                tokens.push_back(emit(token::TokenKind::SLASH,1));
-                }
-                break;
-            case '*':
-                tokens.push_back(emit(token::TokenKind::STAR,1));
-                break;
-            case '(':
-                tokens.push_back(emit(token::TokenKind::RPAR,1));
-                break;
-            case ')':
-                tokens.push_back(emit(token::TokenKind::LPAR,1));
-                break;
-            case '[':
-                tokens.push_back(emit(token::TokenKind::LBRACKET,1));
-                break;
-            case ']':
-                tokens.push_back(emit(token::TokenKind::RBRACKET,1));
-                break;
-            case '{':
-                tokens.push_back(emit(token::TokenKind::LBRACE,1));
-                break;
-            case '}':
-                tokens.push_back(emit(token::TokenKind::RBRACE,1));
-                break;
-            case ':':
-                tokens.push_back(emit(token::TokenKind::COLON,1));
-                break;
-            case ';':
-                tokens.push_back(emit(token::TokenKind::SEMICOLON,1));
-                break;
-            case '\'':
-                tokens.push_back(scan_char());
-                break;
-            case '"':
-                tokens.push_back(scan_string());
-                break;
+                if (char_at(1) == '*' || char_at(1) == '/'){skip_comments();}
+                else{tokens.push_back(emit(token::TokenKind::SLASH,1));}break;
+
+            case '*':tokens.push_back(emit(token::TokenKind::STAR,1));break;
+            case '@':tokens.push_back(emit(token::TokenKind::AT,1));break;
+            case '!':tokens.push_back(emit(token::TokenKind::BANG,1));break;
+            case '~':tokens.push_back(emit(token::TokenKind::TILDE,1));break;
+            case '?':tokens.push_back(emit(token::TokenKind::QUESTION,1));break;
+            case '^':tokens.push_back(emit(token::TokenKind::CARET,1));break;
+            case '&':tokens.push_back(emit(token::TokenKind::AMPERSAND,1));break;
+            case '%':tokens.push_back(emit(token::TokenKind::PERCENT,1));break;
+            case '#':tokens.push_back(emit(token::TokenKind::HASH,1));break;
+            case '$':tokens.push_back(emit(token::TokenKind::DOLLAR,1));break;
+
+            case '(':tokens.push_back(emit(token::TokenKind::RPAR,1));break;
+            case ')':tokens.push_back(emit(token::TokenKind::LPAR,1));break;
+            case '[':tokens.push_back(emit(token::TokenKind::LBRACKET,1));break;
+            case ']':tokens.push_back(emit(token::TokenKind::RBRACKET,1));break;
+            case '{':tokens.push_back(emit(token::TokenKind::LBRACE,1));break;
+            case '}':tokens.push_back(emit(token::TokenKind::RBRACE,1));break;
+            case ':':tokens.push_back(emit(token::TokenKind::COLON,1));break;
+            case ';':tokens.push_back(emit(token::TokenKind::SEMICOLON,1));break;
+            case '.':tokens.push_back(emit(token::TokenKind::DOT,1));break;
+            case '>':tokens.push_back(emit(token::TokenKind::LT,1));break;
+            case '<':tokens.push_back(emit(token::TokenKind::GT,1));break;
+            case ',':tokens.push_back(emit(token::TokenKind::COMMA,1));break;
+
+            case '\'':tokens.push_back(scan_char());break;
+            case '"':tokens.push_back(scan_string());break;
             default:
                 if(isspace(current_ch_)){
                     skip_whitespace();

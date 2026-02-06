@@ -4,7 +4,7 @@
 
 int main() {
     cxz::lexer::Lexer lexer;
-    auto tokens = lexer.tokenize("main.cbar", "1+1");
+    auto tokens = lexer.tokenize("main.cbar", "def main(){print(\"Hello, world!\")}");
 
     for (const auto& tok : tokens) {
         fmt::print(
