@@ -7,19 +7,30 @@ namespace cxz::token {
 enum class TokenKind{
     // operators
     PLUS,       // +
+    PLUS_ASS ,  // +=
     MINUS,      // -
+    MINUS_ASS,  // -=
     SLASH,      // /
+    SLASH_ASS,  // /=
     STAR,       // *
+    STAR_ASS,   // =*
+    POW,      // **
+    POW_ASS,  // **=
     ASSIGN,     // =
     AT,         // @
     BANG,       // !
     HASH,       // #
     DOLLAR,     // $
     PERCENT,    // %
+    PERCENT_ASS,// %=
     CARET,      // ^
     AMPERSAND,  // &
     QUESTION,   // ?
     TILDE,      // ~
+    PIPE,       // |
+    OR,         // ||
+    AND,        // &&
+
 
     RPAR,       // )
     LPAR,       // (
@@ -28,12 +39,23 @@ enum class TokenKind{
     LBRACKET,   // [
     RBRACKET,   // ]
     COLON,      // :
+    DCOLON,     // ::
     SEMICOLON,  // ;
     DOT,        // .
+    RANGE,       // ..
+    ELLIPSIS,   // ...
     COMMA,      // 
     APOSTROPHE, // ' // TODO: сделать логику отличия литерала от одинарной кавычки.
     LT,         // <
     GT,         // >
+    LE,         // <=
+    GE,         // >=
+    EQ,         // ==
+    NEQ,        // !=
+    SHIFT_LEFT, // <<
+    SHIFT_RIGHT,// >>
+    IMPL_ARR,   // =>
+    RETURN_ARR, // ->
 
     // keywords
     ID,
