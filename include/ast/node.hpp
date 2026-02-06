@@ -1,4 +1,4 @@
-// ast/node.hpp
+// include/ast/node.hpp
 #pragma once
 #include "utils/pos.hpp"
 
