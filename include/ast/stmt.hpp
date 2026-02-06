@@ -9,13 +9,16 @@ namespace cxz::ast {
 
 struct LetStmt final : Node {
     std::string name;
+    bool has_const;
     std::unique_ptr<Node> value;
 
     LetStmt(std::string name,
+            bool has_const,
             std::unique_ptr<Node> value,
             pos::Pos pos)
         : Node(NodeKind::LetStmt, pos),
           name(std::move(name)),
+          has_const(has_const),
           value(std::move(value)) {}
 };
 struct ReturnStmt final : Node {
