@@ -9,31 +9,27 @@ namespace cxz::parser {
 Parser::Parser(const std::vector<token::Token>& tokens)
     : tokens_(tokens) {}
 
-
-const token::Token& Parser::peek(size_t offset) const {// по умолчанию сдвиг равоно 0
-    if (pos_ + offset >= tokens_.size())// проверка на превышение кол-во индекса над кол-вом токенов
-        return tokens_.back(); // в этом случе вернем последний
-    return tokens_[pos_ + offset]; // по умолчанию вернем токен со сдвигом индекса (по умолчанию вернем текеущий токен)
+const token::Token& Parser::peek(size_t offset) const {
+    if (pos_ + offset >= tokens_.size())
+        return tokens_.back();
+    return tokens_[pos_ + offset];
 }
-
 
 const token::Token& Parser::advance() {
     return tokens_[pos_++];// возвращаем следующий токен из списка + сдвигаем pos на 1
     // ВОПРОС:интересно, здесь созраняется позиция в полях или нет?
 }
 
- 
 bool Parser::match(token::TokenKind kind) {
-    if (peek().kind() == kind) { // если текущий kind токена соотвествует ожидаемому, сдвинемся 
+    if (peek().kind() == kind) { // если текущий kind токена соответствует ожидаемому, сдвинемся
         advance(); // двигаемся вперед 
         return true;
     }
     return false;
 }
 
-
 void Parser::expect(token::TokenKind kind, const char* msg) {
-    if (!match(kind)) // если match возвращает false (тоесть заявленный токен не совпадает с текущим), то вы выбросим ошибку
+    if (!match(kind)) // если match возвращает false (то-есть заявленный токен не совпадает с текущим), то выбросим ошибку
         throw std::runtime_error(msg);
 }
 
@@ -45,25 +41,24 @@ std::unique_ptr<ast::Program> Parser::parse_program() {
         prog->body.push_back(parse_statement());
     }
 
-    return prog; // возращаем pointer
+    return prog; // возвращаем pointer
 }
 
 //'{' <stmt> '}' 
 std::unique_ptr<ast::Block> Parser::parse_block() {
     auto block = std::make_unique<ast::Block>(peek().pos());// создаем block pointer 
-    expect(token::TokenKind::LBRACE, "expected '{'");// проверка на наличие {
+    expect(token::TokenKind::LBRACE, "expected '{'");// проверка на наличие '{'
 
-    while (peek().kind() != token::TokenKind::RBRACE) { // пока токен не } парсим утверждения и записываем в тело блока
+    while (peek().kind() != token::TokenKind::RBRACE) { // пока токен не '}' парсим утверждения и записываем в тело блока
         block->statements.push_back(parse_statement());
     }
 
-    expect(token::TokenKind::RBRACE, "expected '}'");// проверяем на наличие } (а тут вообще ради безопасности)
+    expect(token::TokenKind::RBRACE, "expected '}'");// проверяем на наличие '}' (а тут вообще ради безопасности)
     return block; // возвращаем этот pointer
 }
 
-
 std::unique_ptr<ast::Node> Parser::parse_statement() {
-    switch (peek().kind()) { // проверяем какой текцщий токен и приминяем парсинг для конкретного токена
+    switch (peek().kind()) { // проверяем какой текущий токен и применяем парсинг для конкретного токена
         case token::TokenKind::LET:
         case token::TokenKind::CONST:
             return parse_let();
@@ -79,7 +74,7 @@ std::unique_ptr<ast::Node> Parser::parse_statement() {
 // 'let'/'const'<ID>'='<expr>';' 
 std::unique_ptr<ast::Node> Parser::parse_let() {
     bool is_const = match(token::TokenKind::CONST); // тут проверка на const
-    if (!is_const) advance(); // если проверка не сработала и is_const остался false значит это let и двигаемся вперед 
+    if (!is_const) advance(); // если проверка не сработала и is_const остался false значит это - let и двигаемся вперед
 
     auto name = advance(); // записываем токен и именем и двигаемся вперед
     expect(token::TokenKind::ID, "expected identifier"); // проверка на наличие имени
@@ -87,7 +82,7 @@ std::unique_ptr<ast::Node> Parser::parse_let() {
     expect(token::TokenKind::ASSIGN, "expected '='"); // проверка на наличие оператора присвоения
 
     auto value = parse_expression(); // парсим выражение и записываем как значение
-    expect(token::TokenKind::SEMICOLON, "expected ';'"); // проверка на ;
+    expect(token::TokenKind::SEMICOLON, "expected ';'"); // проверка на ';'
 
     return std::make_unique<ast::LetStmt>(
         name.as<std::string>(), // имя переменной как str
@@ -97,7 +92,6 @@ std::unique_ptr<ast::Node> Parser::parse_let() {
         // еще должен сказать, что kind уже определен в дочерней LetStmt
     ); // вернем LetStmt с прарметрами выше
 }
-
 
 // 'return'<expr>';' 
 std::unique_ptr<ast::Node> Parser::parse_return() {
@@ -113,13 +107,13 @@ std::unique_ptr<ast::Node> Parser::parse_return() {
 
 std::unique_ptr<ast::Node> Parser::parse_expr_stmt() {
     auto expr = parse_expression(); // парсим выражения и записываем
-    expect(token::TokenKind::SEMICOLON, "expected ';'"); // проверка на ;
+    expect(token::TokenKind::SEMICOLON, "expected ';'"); // проверка на ';'
     return expr;// возвращаем
 }
 
 std::tuple<int, int> Parser::precedence(token::TokenKind kind) const {
-    switch (kind) { // тут сила каждого оператора и возвращаем приоретет
-        case token::TokenKind::POW:return {30, 0}; // [0]: сила, [1]: 0 - левоассоциативный, 1 правоассоциативный
+    switch (kind) { // тут сила каждого оператора и возвращаем приоритет
+        case token::TokenKind::POW:return {30, 0}; // [0]: сила, [1]: 0 - левоассоциативный, 1 - правоассоциативный
         case token::TokenKind::STAR:
         case token::TokenKind::SLASH: return {20, 1};
         case token::TokenKind::PLUS:
@@ -134,11 +128,19 @@ std::unique_ptr<ast::Node> Parser::parse_prefix() {
     const auto& tok = advance(); // записываем токен + продвигаемся
 
     switch (tok.kind()) { // проверяем токен
+        /* если литерал, то создаем pointer Literal
+             * со значением этого литерала и позицию в
+             * родительскую структуру */
         case token::TokenKind::INT_LITERAL:
         case token::TokenKind::FLOAT_LITERAL:
         case token::TokenKind::STRING_LITERAL:
         case token::TokenKind::CHAR_LITERAL:
-            return std::make_unique<ast::Literal>(tok.value(), tok.pos());// если литерал, то создаем pointer Literal со значением этого литерала и позицию в родительскую структуру
+            return std::make_unique<ast::Literal>(tok.value(), tok.pos());
+            /*FIXME: IDE clion показывает ошибку:
+             * "In template: no matching constructor for initialization of 'cxz::ast::Literal'"*/
+
+
+
 
         case token::TokenKind::ID: // если id, то создаем pointer ID с именем id и позицией
             return std::make_unique<ast::Identifier>(
@@ -192,7 +194,7 @@ std::unique_ptr<ast::Node> Parser::parse_expression(int min_prec) { // по ум
     return left;
 }
 
-};
+};// namespace cxz::parser
 /*
 TODO: надо сделать поддержку унарных операторов и еще надо сделать возвраты сравнения в виде bool
 */

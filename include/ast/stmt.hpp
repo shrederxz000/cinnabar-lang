@@ -15,19 +15,21 @@ struct LetStmt final : Node {
     LetStmt(std::string name,
             bool has_const,
             std::unique_ptr<Node> value,
-            pos::Pos pos)
+            utils::Pos pos)
         : Node(NodeKind::LetStmt, pos),
           name(std::move(name)),
           has_const(has_const),
           value(std::move(value)) {}
-};
+};// struct LetStmt
+
 struct ReturnStmt final : Node {
     std::unique_ptr<Node> value;
 
-    ReturnStmt(std::unique_ptr<Node> value, pos::Pos pos)
+    ReturnStmt(std::unique_ptr<Node> value, utils::Pos pos)
         : Node(NodeKind::ReturnStmt, pos),
           value(std::move(value)) {}
-};
+};// struct ReturnStmt
+
 struct IfStmt final : Node {
     std::unique_ptr<Node> condition;
     std::unique_ptr<Block> then_branch;
@@ -36,12 +38,12 @@ struct IfStmt final : Node {
     IfStmt(std::unique_ptr<Node> cond,
            std::unique_ptr<Block> then_b,
            std::unique_ptr<Block> else_b,
-           pos::Pos pos)
+           utils::Pos pos)
         : Node(NodeKind::IfStmt, pos),
           condition(std::move(cond)),
           then_branch(std::move(then_b)),
           else_branch(std::move(else_b)) {}
-};
+};// struct IfStmt
 
-}
+}// namespace cxz::ast
 

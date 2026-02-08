@@ -3,9 +3,10 @@
 #include "variant"
 #include "cstdint"
 #include "utils/pos.hpp"
+
 namespace cxz::token {
-enum class TokenKind{
-    // operators
+
+enum class TokenKind {
     PLUS,       // +
     PLUS_ASS ,  // +=
     MINUS,      // -
@@ -14,8 +15,8 @@ enum class TokenKind{
     SLASH_ASS,  // /=
     STAR,       // *
     STAR_ASS,   // =*
-    POW,      // **
-    POW_ASS,  // **=
+    POW,        // **
+    POW_ASS,    // **=
     ASSIGN,     // =
     AT,         // @
     BANG,       // !
@@ -30,8 +31,6 @@ enum class TokenKind{
     PIPE,       // |
     OR,         // ||
     AND,        // &&
-
-
     RPAR,       // )
     LPAR,       // (
     LBRACE,     // {
@@ -44,8 +43,7 @@ enum class TokenKind{
     DOT,        // .
     RANGE,       // ..
     ELLIPSIS,   // ...
-    COMMA,      // 
-    APOSTROPHE, // ' // TODO: сделать логику отличия литерала от одинарной кавычки.
+    COMMA,
     LT,         // <
     GT,         // >
     LE,         // <=
@@ -59,9 +57,6 @@ enum class TokenKind{
 
     // keywords
     ID,
-    KEYWORD,
-
-
     IF,
     ELSE,
     SWITCH,
@@ -88,8 +83,6 @@ enum class TokenKind{
     SPAWN,
     DELETE,
 
-    
-
     // literals
     INT_LITERAL,
     FLOAT_LITERAL,
@@ -98,9 +91,10 @@ enum class TokenKind{
     BOOL_LITERAL, // true of false
 
     Eof,
-};
-    inline const char* to_string(TokenKind kind) {
-        switch (kind) {
+};// enum class TokenKind
+
+inline const char* to_string(TokenKind kind) {
+    switch (kind) {
         case TokenKind::PLUS: return "PLUS";
         case TokenKind::MINUS: return "MINUS";
         case TokenKind::SLASH: return "SLASH";
@@ -125,11 +119,9 @@ enum class TokenKind{
         case TokenKind::SEMICOLON: return "SEMICOLON";
         case TokenKind::DOT: return "DOT";
         case TokenKind::COMMA: return "COMMA";
-        case TokenKind::APOSTROPHE: return "APOSTROPHE";
         case TokenKind::LT: return "LT";
         case TokenKind::GT: return "GT";
         case TokenKind::ID: return "ID";
-        case TokenKind::KEYWORD: return "KEYWORD";
         case TokenKind::IF: return "IF";
         case TokenKind::ELSE: return "ELSE";
         case TokenKind::SWITCH: return "SWITCH";
@@ -154,64 +146,46 @@ enum class TokenKind{
         case TokenKind::ASYNC: return "ASYNC";
         case TokenKind::SPAWN: return "SPAWN";
         case TokenKind::DELETE: return "DELETE";
-
         case TokenKind::INT_LITERAL: return "INT_LITERAL";
         case TokenKind::FLOAT_LITERAL: return "FLOAT_LITERAL";
         case TokenKind::STRING_LITERAL: return "STRING_LITERAL";
         case TokenKind::CHAR_LITERAL: return "CHAR_LITERAL";
         case TokenKind::BOOL_LITERAL: return "BOOL_LITERAL";
         default:  return "<unknown>";
-        }
     }
+}// inline const char* to_string()
 
+using TokenValue = std::variant<std::monostate,int64_t,double,std::string,char,bool>;
 
-    using TokenValue = std::variant<
-    std::monostate,
-    int64_t,
-    double,
-    std::string,
-    char,
-    bool
->;
-
-class Token{
+class Token {
 private:
     TokenKind kind_;
     TokenValue value_;
-    pos::Pos pos_;
+    utils::Pos pos_;
 
 public:
-    Token(TokenKind kind, pos::Pos pos)
+    Token(TokenKind kind, utils::Pos pos)
         :kind_(kind),
         value_(std::monostate{}),
         pos_(pos){}
 
     template<typename T>
-    Token(TokenKind kind, T&& value, pos::Pos pos)
+    Token(TokenKind kind, T&& value, utils::Pos pos)
         :kind_(kind),
         value_(std::forward<T>(value)),
         pos_(pos) {}
 
     TokenKind kind() const noexcept { return kind_;}
-    const pos::Pos& pos() const noexcept {return pos_;}
-
-    const TokenValue& value() const noexcept {
-        return value_;
-    }
-
-
-    bool has_value() const noexcept {
-        return !std::holds_alternative<std::monostate>(value_);
-    }
-    template <typename T>
-    bool is() const noexcept {
-        return std::holds_alternative<T>(value_);
-    }
+    const utils::Pos& pos() const noexcept {return pos_;}
+    const TokenValue& value() const noexcept {return value_;}
+    bool has_value() const noexcept {return !std::holds_alternative<std::monostate>(value_);}
 
     template <typename T>
-    const T& as() const {
-        return std::get<T>(value_);
-    }
+    bool is() const noexcept {return std::holds_alternative<T>(value_);}
 
-};
-}
+    template <typename T>
+    const T& as() const {return std::get<T>(value_);}
+
+};// class Token
+
+}// namespace cxz::token
