@@ -161,6 +161,15 @@ namespace cxz::lexer{
         advance(); // закрывающая '
         return token::Token(token::TokenKind::CHAR_LITERAL, value, start_pos);
     }
+    token::Token Lexer::scan_bool(){
+        size_t start = cursor_;
+        pos::Pos start_pos = pos_;
+
+        while (std::isalpha(static_cast<unsigned char>(current_ch_))) {advance();}
+
+        size_t len = cursor_ - start;
+        std::string value(code_.substr(start, len));
+    }
 
     
     token::Token Lexer::scan_id_or_keyword() {
@@ -202,14 +211,25 @@ namespace cxz::lexer{
             {"struct",  token::TokenKind::STRUCT},
             {"scope",  token::TokenKind::SCOPE},
             {"del",  token::TokenKind::DELETE},
-            
+            {"bool", token::TokenKind::BOOL},
+            {"true", token::TokenKind::BOOL_LITERAL},
+            {"false", token::TokenKind::BOOL_LITERAL}
         };
 
         auto it = keywords.find(value);
-        if (it != keywords.end()) {
-            return token::Token(it->second, value, start_pos);
-        }
+            if (it != keywords.end()) {
+                switch (it->second) {
+                    case token::TokenKind::BOOL_LITERAL:
+                        return token::Token(
+                            token::TokenKind::BOOL_LITERAL,
+                            value == "true",
+                            start_pos
+                            );
 
+                    default:
+                        return token::Token(it->second, value, start_pos);
+                }
+            }
         return token::Token(token::TokenKind::ID, value, start_pos);
     }
 

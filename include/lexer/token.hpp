@@ -1,8 +1,8 @@
 // include/lexer/token.hpp
 #pragma once
 #include "variant"
+#include "cstdint"
 #include "utils/pos.hpp"
-#include <cstdint>
 namespace cxz::token {
 enum class TokenKind{
     // operators
@@ -78,6 +78,7 @@ enum class TokenKind{
     INT,
     STR,
     CHAR,
+    BOOL,
     PRINT,
     STATIC,
     PUBLIC,
@@ -169,7 +170,8 @@ enum class TokenKind{
     int64_t,
     double,
     std::string,
-    char
+    char,
+    bool
 >;
 
 class Token{

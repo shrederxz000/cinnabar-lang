@@ -29,15 +29,10 @@ private:
     token::Token scan_number();
     token::Token scan_string();
     token::Token scan_char();
+    token::Token scan_bool();
     token::Token scan_id_or_keyword();
 
-    /* 
-    подробнее: emit()
-    автоматически заталкивает токен в вектор
-    + 
-    автопродвижение токена на нужное кол-во advance()
-    ограничения: приминения только к просьым токенам (ident, keyword, literal) не подойдут, да и есть отдельные сканеры
-    */
+
     token::Token emit(token::TokenKind kind, size_t len = 1);
 
 };

@@ -33,8 +33,8 @@ struct Identifier final : Node {
 };
 
 enum class BinaryOp {
-    Add, Sub, Mul, Div,
-    Eq, Ne, Lt, Gt, Le, Ge,
+    ADD, SUB, MUL, DIV, MOD, POW,
+    EQ, NEQ, LT, GT, LE, GE,
 };
 
 struct BinaryExpr final : Node {

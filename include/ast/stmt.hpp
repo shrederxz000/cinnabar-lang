@@ -1,9 +1,9 @@
 // include/ast/statements.hpp
 #pragma once
-#include "ast/node.hpp"
-#include "ast/programm.hpp"
-#include "memory"
 #include "string"
+#include "memory"
+#include "ast/node.hpp"
+#include "ast/program.hpp"
 
 namespace cxz::ast {
 
