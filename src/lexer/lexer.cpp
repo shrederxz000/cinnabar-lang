@@ -1,4 +1,4 @@
-// src/lexer/lexer.hpp
+// src/lexer/lexer.cpp
 #include "string_view"
 #include "unordered_map"
 #include "string"

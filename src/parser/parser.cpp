@@ -2,6 +2,7 @@
 #include "stdexcept"
 #include "vector"
 #include "tuple"
+#include "any"
 #include "parser/parser.hpp"
 
 namespace cxz::parser {
@@ -73,26 +74,31 @@ std::unique_ptr<ast::Node> Parser::parse_statement() {
     }
 }
 
+// "let"/"const",<id>,":",<type>,"=", <literal>
+    std::unique_ptr<ast::Node> Parser::parse_let() {
+        bool is_const = match(token::TokenKind::CONST);
 
-std::unique_ptr<ast::Node> Parser::parse_let() {
-    bool is_const = match(token::TokenKind::CONST);
+        if (!is_const) {
+            expect(token::TokenKind::LET, "expected 'let'");
+        }
 
-    if (!is_const) advance();
+        auto name = advance();
+        expect(token::TokenKind::ID, "expected identifier");
+        expect(token::TokenKind::COLON, "expected ':'");
+        auto typing = advance(); // типизация
+        expect(token::TokenKind::ASSIGN, "expected '='");
+        auto value = parse_expression();
+        expect(token::TokenKind::SEMICOLON, "expected ';'");
 
-    auto name = advance();
-    expect(token::TokenKind::ID, "expected identifier");
-    expect(token::TokenKind::ASSIGN, "expected '='");
-    auto value = parse_expression();
-    expect(token::TokenKind::SEMICOLON, "expected ';'");
+        return std::make_unique<ast::LetStmt>(
+                name.as<std::string>(),
+                is_const,
+                typing.kind(),
+                std::move(value),
+                name.pos()
+        );
+    }
 
-    return std::make_unique<ast::LetStmt>(
-        name.as<std::string>(),
-        is_const,
-        std::move(value),
-        name.pos()
-        
-    );
-}
 
 // 'return'<expr>';' 
 std::unique_ptr<ast::Node> Parser::parse_return() {
@@ -112,7 +118,7 @@ std::unique_ptr<ast::Node> Parser::parse_expr_stmt() {
     return expr;
 }
 
-std::tuple<int, int> Parser::precedence(token::TokenKind kind) const {
+std::tuple<int, int> Parser::precedence(token::TokenKind kind) {
 
     switch (kind) {
         case token::TokenKind::POW: {return {30, 0};} // [0]: сила, [1]: 0 - левоассоциативный, 1 - правоассоциативный
@@ -136,8 +142,6 @@ std::unique_ptr<ast::Node> Parser::parse_prefix() {
         case token::TokenKind::STRING_LITERAL: {return std::make_unique<ast::Literal>(tok.value(), tok.pos());}
         case token::TokenKind::CHAR_LITERAL: {
             return std::make_unique<ast::Literal>(tok.value(), tok.pos());
-            /*FIXME: IDE clion показывает ошибку:
-             * "In template: no matching constructor for initialization of 'cxz::ast::Literal'"*/
         }
 
         case token::TokenKind::ID: {
@@ -173,7 +177,7 @@ std::unique_ptr<ast::Node> Parser::parse_expression(int min_prec) {
         auto right = parse_expression(prec + prec_side);
         ast::BinaryOp op;
 
-        switch (op_tok.kind()) { // проверка токена и запись а как оператор в ast
+        switch (op_tok.kind()) { // проверка токена и запись, а как оператор в ast
             case token::TokenKind::PLUS: {op = ast::BinaryOp::ADD; break;}
             case token::TokenKind::MINUS: {op = ast::BinaryOp::SUB; break;}
             case token::TokenKind::STAR: {op = ast::BinaryOp::MUL; break;}
@@ -196,7 +200,7 @@ std::unique_ptr<ast::Node> Parser::parse_expression(int min_prec) {
     return left;
 }
 
-};// namespace cxz::parser
+}// namespace cxz::parser
 /*
 TODO: надо сделать поддержку унарных операторов и еще надо сделать возвраты сравнения в виде bool
 */

@@ -1,9 +1,12 @@
+// include/cinnabar.hpp
 #pragma once
-#include "string_view"
+
+#include "vector"
+#include "lexer/token.hpp"
+#include "ast/node.hpp"
 
 namespace cxz {
-
-    void execute(std::string_view code, std::string_view filepath);
-    
+    void print_tokens(const std::vector<token::Token>& tokens);
+    void print_ast(const ast::Node* node, int indent = 0);
 }// namespace cxz
 

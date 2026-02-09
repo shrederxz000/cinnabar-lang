@@ -10,6 +10,7 @@
 
 namespace cxz::parser {
     
+
 class Parser {
 private:
     const std::vector<token::Token>& tokens_;
@@ -19,13 +20,16 @@ private:
     bool match(token::TokenKind kind);
     void expect(token::TokenKind kind, const char* msg);
     std::unique_ptr<ast::Node> parse_statement();
+
+    
     std::unique_ptr<ast::Node> parse_let();
+
     std::unique_ptr<ast::Node> parse_return();
     std::unique_ptr<ast::Node> parse_expr_stmt();
     std::unique_ptr<ast::Block> parse_block();
     std::unique_ptr<ast::Node> parse_expression(int min_prec = 0);
     std::unique_ptr<ast::Node> parse_prefix();
-    std::tuple<int, int> precedence(token::TokenKind kind) const;
+    static std::tuple<int, int> precedence(token::TokenKind kind) ;
 public:
     explicit Parser(const std::vector<token::Token>& tokens);
 
