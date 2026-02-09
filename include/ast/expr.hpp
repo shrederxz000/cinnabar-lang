@@ -8,7 +8,7 @@
 
 namespace cxz::ast {
 
-using LiteralValue = std::variant<int64_t,double,std::string,char,bool>;
+using LiteralValue = std::variant<std::monostate, int64_t,double,std::string,char,bool>;
 
 struct Literal final : Node {
     LiteralValue value;

@@ -46,7 +46,7 @@ std::unique_ptr<ast::Program> Parser::parse_program() {
         prog->body.push_back(parse_statement());
     }
 
-    return prog; // возвращаем pointer
+    return prog;
 }
 
 //'{' <stmt> '}' 
@@ -63,29 +63,25 @@ std::unique_ptr<ast::Block> Parser::parse_block() {
 }
 
 std::unique_ptr<ast::Node> Parser::parse_statement() {
+
     switch (peek().kind()) {
-        case token::TokenKind::LET:
-        case token::TokenKind::CONST:
-            return parse_let();
-
-        case token::TokenKind::RETURN:
-            return parse_return();
-
-        default:
-            return parse_expr_stmt();
+        case token::TokenKind::LET: {return parse_let();}
+        case token::TokenKind::CONST: {return parse_let();}    
+        case token::TokenKind::RETURN: {return parse_return();}
+            
+        default: {return parse_expr_stmt();} 
     }
 }
 
 
 std::unique_ptr<ast::Node> Parser::parse_let() {
     bool is_const = match(token::TokenKind::CONST);
+
     if (!is_const) advance();
 
     auto name = advance();
     expect(token::TokenKind::ID, "expected identifier");
-
     expect(token::TokenKind::ASSIGN, "expected '='");
-
     auto value = parse_expression();
     expect(token::TokenKind::SEMICOLON, "expected ';'");
 
@@ -117,6 +113,7 @@ std::unique_ptr<ast::Node> Parser::parse_expr_stmt() {
 }
 
 std::tuple<int, int> Parser::precedence(token::TokenKind kind) const {
+
     switch (kind) {
         case token::TokenKind::POW: {return {30, 0};} // [0]: сила, [1]: 0 - левоассоциативный, 1 - правоассоциативный
         case token::TokenKind::STAR: {return {20, 1};}
@@ -125,6 +122,7 @@ std::tuple<int, int> Parser::precedence(token::TokenKind kind) const {
         case token::TokenKind::MINUS: {return {10, 1};}
         case token::TokenKind::EQ: {return {5, 1};}
         case token::TokenKind::NEQ: {return {5, 1};}
+
         default: {return {0, 1};}
     }
 }

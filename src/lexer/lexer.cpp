@@ -223,7 +223,9 @@ token::Token Lexer::scan_id_or_keyword() {
     };// static const std::unordered_map<std::string,token::TokenKind> keywords
 
     auto it = keywords.find(value);
+
     if (it != keywords.end()) {
+        
         switch (it->second) {
             case token::TokenKind::BOOL_LITERAL:
                 return token::Token(
@@ -234,7 +236,9 @@ token::Token Lexer::scan_id_or_keyword() {
 
             default:
                 return token::Token(it->second, value, start_pos);
+
         }
+
     }
     return token::Token(token::TokenKind::ID, value, start_pos);
 }// token::Token Lexer::scan_id_or_keyword()

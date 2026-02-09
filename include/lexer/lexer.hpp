@@ -28,6 +28,7 @@ private:
     token::Token emit(token::TokenKind kind, size_t len = 1);
 
 public:
+
     Lexer() = default;
 
     std::vector<token::Token> tokenize(std::string_view filepath, std::string_view code);
