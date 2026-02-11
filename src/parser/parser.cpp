@@ -3,6 +3,11 @@
 #include "vector"
 #include "tuple"
 #include "any"
+#include "memory"
+#include "lexer/token.hpp"
+#include "ast/program.hpp"
+#include "ast/expr.hpp"
+#include "ast/stmt.hpp"
 #include "parser/parser.hpp"
 
 namespace cxz::parser {
@@ -82,12 +87,17 @@ std::unique_ptr<ast::Node> Parser::parse_statement() {
             expect(token::TokenKind::LET, "expected 'let'");
         }
 
-        auto name = advance();
         expect(token::TokenKind::ID, "expected identifier");
+        auto name = tokens_[pos_ - 1];  // токен, который съел expect
+
         expect(token::TokenKind::COLON, "expected ':'");
-        auto typing = advance(); // типизация
+
+        auto typing = advance(); // тип (int / float / etc)
+
         expect(token::TokenKind::ASSIGN, "expected '='");
+
         auto value = parse_expression();
+
         expect(token::TokenKind::SEMICOLON, "expected ';'");
 
         return std::make_unique<ast::LetStmt>(
@@ -98,6 +108,7 @@ std::unique_ptr<ast::Node> Parser::parse_statement() {
                 name.pos()
         );
     }
+
 
 
 // 'return'<expr>';' 
@@ -134,7 +145,7 @@ std::tuple<int, int> Parser::precedence(token::TokenKind kind) {
 }
 
 std::unique_ptr<ast::Node> Parser::parse_prefix() {
-    const auto& tok = advance();
+    const auto& tok = advance();// а тут финальная точка краха, так как следующий токен должен быть Eof
 
     switch (tok.kind()) {
         case token::TokenKind::INT_LITERAL: {return std::make_unique<ast::Literal>(tok.value(), tok.pos());}
@@ -162,19 +173,37 @@ std::unique_ptr<ast::Node> Parser::parse_prefix() {
         }
     }
 }
+    bool Parser::is_binary_op(token::TokenKind kind) const {
+        switch (kind) {
+            case token::TokenKind::PLUS:
+            case token::TokenKind::MINUS:
+            case token::TokenKind::STAR:
+            case token::TokenKind::SLASH:
+            case token::TokenKind::POW:
+            case token::TokenKind::EQ:
+            case token::TokenKind::NEQ:
+            case token::TokenKind::LT:
+            case token::TokenKind::LE:
+            case token::TokenKind::GT:
+            case token::TokenKind::GE:
+                return true;
+            default:
+                return false;
+        }
+    }
 
  
 std::unique_ptr<ast::Node> Parser::parse_expression(int min_prec) {
     auto left = parse_prefix();
 
-    while (true) { 
-        auto kind = peek().kind(); 
+    while (true) {
+        auto kind = peek().kind(); // это проблемная часть. тут оказывается не литерал, а ";"
         auto [prec, prec_side] = precedence(kind);
 
-        if (prec < min_prec) {break;}
+        if (prec == 0 || prec < min_prec) {break;}
 
-        auto op_tok = advance();
-        auto right = parse_expression(prec + prec_side);
+        auto op_tok = advance();//
+        auto right = parse_expression(prec + prec_side);//
         ast::BinaryOp op;
 
         switch (op_tok.kind()) { // проверка токена и запись, а как оператор в ast
@@ -183,7 +212,7 @@ std::unique_ptr<ast::Node> Parser::parse_expression(int min_prec) {
             case token::TokenKind::STAR: {op = ast::BinaryOp::MUL; break;}
             case token::TokenKind::SLASH: {op = ast::BinaryOp::DIV; break;}
             case token::TokenKind::POW: {op = ast::BinaryOp::POW; break;}
-            
+
             default: {
                 throw std::runtime_error("unknown binary operator");
             }

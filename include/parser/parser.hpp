@@ -27,6 +27,7 @@ private:
     std::unique_ptr<ast::Node> parse_return();
     std::unique_ptr<ast::Node> parse_expr_stmt();
     std::unique_ptr<ast::Block> parse_block();
+    bool is_binary_op(token::TokenKind kind) const;
     std::unique_ptr<ast::Node> parse_expression(int min_prec = 0);
     std::unique_ptr<ast::Node> parse_prefix();
     static std::tuple<int, int> precedence(token::TokenKind kind) ;

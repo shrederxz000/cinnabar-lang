@@ -151,6 +151,7 @@ inline const char* to_string(TokenKind kind) {
         case TokenKind::STRING_LITERAL: return "STRING_LITERAL";
         case TokenKind::CHAR_LITERAL: return "CHAR_LITERAL";
         case TokenKind::BOOL_LITERAL: return "BOOL_LITERAL";
+        case TokenKind::Eof: return "EOF";
         default:  return "<unknown>";
     }
 }// inline const char* to_string()

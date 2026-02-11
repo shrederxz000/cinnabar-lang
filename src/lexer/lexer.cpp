@@ -364,7 +364,7 @@ std::vector<token::Token>Lexer::tokenize(std::string_view filepath,std::string_v
 
     }// while (current_ch_ != '\0' && cursor_ < code_length_)
 
-    emit(token::TokenKind::Eof);
+    tokens.push_back(emit(token::TokenKind::Eof));
     return tokens;
 }// std::vector<token::Token>Lexer::tokenize()
 
