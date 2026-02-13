@@ -1,0 +1,292 @@
+.
+├── cmake-build-debug
+│   ├── build.ninja
+│   ├── CMakeCache.txt
+│   ├── CMakeFiles
+│   │   ├── 4.0.2
+│   │   │   ├── CMakeCCompiler.cmake
+│   │   │   ├── CMakeCXXCompiler.cmake
+│   │   │   ├── CMakeDetermineCompilerABI_C.bin
+│   │   │   ├── CMakeDetermineCompilerABI_CXX.bin
+│   │   │   ├── CMakeSystem.cmake
+│   │   │   ├── CompilerIdC
+│   │   │   │   ├── a.out
+│   │   │   │   ├── CMakeCCompilerId.c
+│   │   │   │   └── tmp
+│   │   │   └── CompilerIdCXX
+│   │   │       ├── a.out
+│   │   │       ├── CMakeCXXCompilerId.cpp
+│   │   │       └── tmp
+│   │   ├── clion-Debug-log.txt
+│   │   ├── clion-environment.txt
+│   │   ├── cmake.check_cache
+│   │   ├── CMakeConfigureLog.yaml
+│   │   ├── CMakeScratch
+│   │   ├── fc-stamp
+│   │   │   └── fmt
+│   │   │       ├── download.stamp
+│   │   │       ├── fmt-gitclone-lastrun.txt
+│   │   │       ├── fmt-gitinfo.txt
+│   │   │       ├── fmt-patch-info.txt
+│   │   │       ├── fmt-update-info.txt
+│   │   │       ├── patch.stamp
+│   │   │       └── update.stamp
+│   │   ├── fc-tmp
+│   │   │   └── fmt
+│   │   │       ├── download.cmake
+│   │   │       ├── fmt-gitclone.cmake
+│   │   │       ├── fmt-gitupdate.cmake
+│   │   │       ├── patch.cmake
+│   │   │       └── update.cmake
+│   │   ├── InstallScripts.json
+│   │   ├── pkgRedirects
+│   │   ├── rules.ninja
+│   │   └── TargetDirectories.txt
+│   ├── cmake_install.cmake
+│   ├── _deps
+│   │   ├── fmt-build
+│   │   │   ├── CMakeFiles
+│   │   │   │   ├── Export
+│   │   │   │   │   └── b834597d9b1628ff12ae4314c3a2e4b8
+│   │   │   │   │       ├── fmt-targets.cmake
+│   │   │   │   │       └── fmt-targets-debug.cmake
+│   │   │   │   └── fmt.dir
+│   │   │   │       └── src
+│   │   │   │           ├── format.cc.o
+│   │   │   │           └── os.cc.o
+│   │   │   ├── cmake_install.cmake
+│   │   │   ├── fmt-config.cmake
+│   │   │   ├── fmt-config-version.cmake
+│   │   │   ├── fmt.pc
+│   │   │   ├── fmt-targets.cmake
+│   │   │   └── libfmtd.a
+│   │   ├── fmt-src
+│   │   │   ├── ChangeLog.md
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── CONTRIBUTING.md
+│   │   │   ├── doc
+│   │   │   │   ├── api.md
+│   │   │   │   ├── ChangeLog-old.md
+│   │   │   │   ├── fmt.css
+│   │   │   │   ├── fmt.js
+│   │   │   │   ├── get-started.md
+│   │   │   │   ├── index.md
+│   │   │   │   ├── perf.svg
+│   │   │   │   ├── python-license.txt
+│   │   │   │   └── syntax.md
+│   │   │   ├── include
+│   │   │   │   └── fmt
+│   │   │   │       ├── args.h
+│   │   │   │       ├── base.h
+│   │   │   │       ├── chrono.h
+│   │   │   │       ├── color.h
+│   │   │   │       ├── compile.h
+│   │   │   │       ├── core.h
+│   │   │   │       ├── format.h
+│   │   │   │       ├── format-inl.h
+│   │   │   │       ├── os.h
+│   │   │   │       ├── ostream.h
+│   │   │   │       ├── printf.h
+│   │   │   │       ├── ranges.h
+│   │   │   │       ├── std.h
+│   │   │   │       └── xchar.h
+│   │   │   ├── LICENSE
+│   │   │   ├── README.md
+│   │   │   ├── src
+│   │   │   │   ├── fmt.cc
+│   │   │   │   ├── format.cc
+│   │   │   │   └── os.cc
+│   │   │   ├── support
+│   │   │   │   ├── AndroidManifest.xml
+│   │   │   │   ├── Android.mk
+│   │   │   │   ├── bazel
+│   │   │   │   │   ├── BUILD.bazel
+│   │   │   │   │   ├── MODULE.bazel
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   └── WORKSPACE.bazel
+│   │   │   │   ├── build.gradle
+│   │   │   │   ├── check-commits
+│   │   │   │   ├── cmake
+│   │   │   │   │   ├── FindSetEnv.cmake
+│   │   │   │   │   ├── fmt-config.cmake.in
+│   │   │   │   │   ├── fmt.pc.in
+│   │   │   │   │   └── JoinPaths.cmake
+│   │   │   │   ├── C++.sublime-syntax
+│   │   │   │   ├── docopt.py
+│   │   │   │   ├── mkdocs
+│   │   │   │   ├── mkdocs.yml
+│   │   │   │   ├── printable.py
+│   │   │   │   ├── python
+│   │   │   │   │   └── mkdocstrings_handlers
+│   │   │   │   │       └── cxx
+│   │   │   │   │           ├── __init__.py
+│   │   │   │   │           └── templates
+│   │   │   │   │               └── README
+│   │   │   │   ├── README
+│   │   │   │   ├── release.py
+│   │   │   │   └── Vagrantfile
+│   │   │   └── test
+│   │   │       ├── add-subdirectory-test
+│   │   │       │   ├── CMakeLists.txt
+│   │   │       │   └── main.cc
+│   │   │       ├── args-test.cc
+│   │   │       ├── assert-test.cc
+│   │   │       ├── base-test.cc
+│   │   │       ├── chrono-test.cc
+│   │   │       ├── CMakeLists.txt
+│   │   │       ├── color-test.cc
+│   │   │       ├── compile-error-test
+│   │   │       │   └── CMakeLists.txt
+│   │   │       ├── compile-fp-test.cc
+│   │   │       ├── compile-test.cc
+│   │   │       ├── cuda-test
+│   │   │       │   ├── CMakeLists.txt
+│   │   │       │   ├── cpp14.cc
+│   │   │       │   └── cuda-cpp14.cu
+│   │   │       ├── detect-stdfs.cc
+│   │   │       ├── enforce-checks-test.cc
+│   │   │       ├── find-package-test
+│   │   │       │   ├── CMakeLists.txt
+│   │   │       │   └── main.cc
+│   │   │       ├── format-impl-test.cc
+│   │   │       ├── format-test.cc
+│   │   │       ├── fuzzing
+│   │   │       │   ├── build.sh
+│   │   │       │   ├── chrono-duration.cc
+│   │   │       │   ├── chrono-timepoint.cc
+│   │   │       │   ├── CMakeLists.txt
+│   │   │       │   ├── float.cc
+│   │   │       │   ├── fuzzer-common.h
+│   │   │       │   ├── main.cc
+│   │   │       │   ├── named-arg.cc
+│   │   │       │   ├── one-arg.cc
+│   │   │       │   ├── README.md
+│   │   │       │   └── two-args.cc
+│   │   │       ├── gtest
+│   │   │       │   ├── CMakeLists.txt
+│   │   │       │   ├── gmock
+│   │   │       │   │   └── gmock.h
+│   │   │       │   ├── gmock-gtest-all.cc
+│   │   │       │   └── gtest
+│   │   │       │       ├── gtest.h
+│   │   │       │       └── gtest-spi.h
+│   │   │       ├── gtest-extra.cc
+│   │   │       ├── gtest-extra.h
+│   │   │       ├── gtest-extra-test.cc
+│   │   │       ├── header-only-test.cc
+│   │   │       ├── mock-allocator.h
+│   │   │       ├── module-test.cc
+│   │   │       ├── no-builtin-types-test.cc
+│   │   │       ├── noexception-test.cc
+│   │   │       ├── os-test.cc
+│   │   │       ├── ostream-test.cc
+│   │   │       ├── perf-sanity.cc
+│   │   │       ├── posix-mock.h
+│   │   │       ├── posix-mock-test.cc
+│   │   │       ├── printf-test.cc
+│   │   │       ├── ranges-odr-test.cc
+│   │   │       ├── ranges-test.cc
+│   │   │       ├── scan.h
+│   │   │       ├── scan-test.cc
+│   │   │       ├── static-export-test
+│   │   │       │   ├── CMakeLists.txt
+│   │   │       │   ├── library.cc
+│   │   │       │   └── main.cc
+│   │   │       ├── std-test.cc
+│   │   │       ├── test-assert.h
+│   │   │       ├── test-main.cc
+│   │   │       ├── unicode-test.cc
+│   │   │       ├── util.cc
+│   │   │       ├── util.h
+│   │   │       └── xchar-test.cc
+│   │   └── fmt-tmp
+│   ├── src
+│   │   ├── Cinnabar
+│   │   ├── CMakeFiles
+│   │   │   └── Cinnabar.dir
+│   │   │       ├── CXX.dd
+│   │   │       ├── CXXDependInfo.json
+│   │   │       ├── CXXModules.json
+│   │   │       ├── lexer
+│   │   │       │   ├── kw_id_scan.cpp.ddi
+│   │   │       │   ├── kw_id_scan.cpp.o
+│   │   │       │   ├── kw_id_scan.cpp.o.ddi
+│   │   │       │   ├── kw_id_scan.cpp.o.ddi.d
+│   │   │       │   ├── kw_id_scan.cpp.o.ddi.i
+│   │   │       │   ├── kw_id_scan.cpp.o.modmap
+│   │   │       │   ├── scaner.cpp.ddi
+│   │   │       │   ├── scaner.cpp.o
+│   │   │       │   ├── scaner.cpp.o.ddi
+│   │   │       │   ├── scaner.cpp.o.ddi.d
+│   │   │       │   ├── scaner.cpp.o.ddi.i
+│   │   │       │   ├── scaner.cpp.o.modmap
+│   │   │       │   ├── simple.cpp.ddi
+│   │   │       │   ├── simple.cpp.o
+│   │   │       │   ├── simple.cpp.o.ddi
+│   │   │       │   ├── simple.cpp.o.ddi.d
+│   │   │       │   ├── simple.cpp.o.ddi.i
+│   │   │       │   ├── simple.cpp.o.modmap
+│   │   │       │   ├── utils.cpp.ddi
+│   │   │       │   ├── utils.cpp.o
+│   │   │       │   ├── utils.cpp.o.ddi
+│   │   │       │   ├── utils.cpp.o.ddi.d
+│   │   │       │   ├── utils.cpp.o.ddi.i
+│   │   │       │   └── utils.cpp.o.modmap
+│   │   │       ├── main.cpp.ddi
+│   │   │       ├── main.cpp.o
+│   │   │       ├── main.cpp.o.ddi
+│   │   │       ├── main.cpp.o.ddi.d
+│   │   │       ├── main.cpp.o.ddi.i
+│   │   │       ├── main.cpp.o.modmap
+│   │   │       └── parser
+│   │   │           ├── parser.cpp.ddi
+│   │   │           ├── parser.cpp.o
+│   │   │           ├── parser.cpp.o.ddi
+│   │   │           ├── parser.cpp.o.ddi.d
+│   │   │           ├── parser.cpp.o.ddi.i
+│   │   │           └── parser.cpp.o.modmap
+│   │   └── cmake_install.cmake
+│   └── Testing
+│       └── Temporary
+│           └── LastTest.log
+├── CMakeLists.txt
+├── Formating guide.md
+├── include
+│   ├── ast
+│   │   ├── expr.hpp
+│   │   ├── exprs
+│   │   │   ├── binary_expr.hpp
+│   │   │   ├── identifier_expr.hpp
+│   │   │   ├── literal_expr.hpp
+│   │   │   └── unary_expr.hpp
+│   │   ├── node.hpp
+│   │   ├── program.hpp
+│   │   ├── stmt.hpp
+│   │   └── stmts
+│   │       ├── if_stmt.hpp
+│   │       ├── let_stmt.hpp
+│   │       └── return_stmt.hpp
+│   ├── cinnabar.hpp
+│   ├── lexer
+│   │   ├── lexer.hpp
+│   │   └── token.hpp
+│   ├── parser
+│   │   └── parser.hpp
+│   └── utils
+│       ├── io.hpp
+│       └── pos.hpp
+├── LICENSE
+├── README.md
+├── src
+│   ├── CMakeLists.txt
+│   ├── lexer
+│   │   ├── kw_id_scan.cpp
+│   │   ├── scaner.cpp
+│   │   ├── simple.cpp
+│   │   └── utils.cpp
+│   ├── main.cpp
+│   └── parser
+│       └── parser.cpp
+└── tree.txt
+
+61 directories, 229 files
