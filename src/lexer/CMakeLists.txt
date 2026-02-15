@@ -1,0 +1,13 @@
+add_library(
+    cinnabar_lexer 
+    STATIC 
+    kw_id_scan.cpp
+    scaner.cpp
+    lexer.cpp
+    utils.cpp
+)
+target_include_directories(
+    cinnabar_lexer 
+    PUBLIC 
+    ${CMAKE_SOURCE_DIR}/include
+)

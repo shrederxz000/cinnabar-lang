@@ -1,4 +1,4 @@
-// src/lexer/lexer.cpp
+// src/lexer/kw_id_scan.cpp
 #include "string_view"
 #include "unordered_map"
 #include "string"

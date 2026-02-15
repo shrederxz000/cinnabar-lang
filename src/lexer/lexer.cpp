@@ -96,8 +96,8 @@ namespace cxz::lexer {
                 case ';': {tokens.push_back(emit(token::TokenKind::SEMICOLON,1));break;}
                 case '#': {tokens.push_back(emit(token::TokenKind::HASH,1));break;}
                 case '$': {tokens.push_back(emit(token::TokenKind::DOLLAR,1));break;}
-                case '(': {tokens.push_back(emit(token::TokenKind::RPAR,1));break;}
-                case ')': {tokens.push_back(emit(token::TokenKind::LPAR,1));break;}
+                case '(': {tokens.push_back(emit(token::TokenKind::LPAR,1));break;}
+                case ')': {tokens.push_back(emit(token::TokenKind::RPAR,1));break;}
                 case '[': {tokens.push_back(emit(token::TokenKind::LBRACKET,1));break;}
                 case ']': {tokens.push_back(emit(token::TokenKind::RBRACKET,1));break;}
                 case '{': {tokens.push_back(emit(token::TokenKind::LBRACE,1));break;}
