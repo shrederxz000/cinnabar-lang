@@ -61,6 +61,7 @@ enum class TokenKind {
     ELSE,
     SWITCH,
     CASE,
+    DEFAULT,
     LET,
     CONST,
     WHILE,

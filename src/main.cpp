@@ -72,7 +72,40 @@ int main(int argc, char* argv[]) {
 
             // 1️⃣ Лексинг
             cxz::lexer::Lexer lexer;
-            auto tokens = lexer.tokenize(filename, content);
+            auto tokens = lexer.tokenize("test",
+                                         "+ "
+                                         "+= "
+                                         "- "
+                                         "-= "
+                                         "/ "
+                                         "/= "
+                                         "* "
+                                         "*= "
+                                         "** "
+                                         "**= "
+                                         "= "
+                                         "@ "
+                                         "! "
+                                         "# "
+                                         "$ "
+                                         "% "
+                                         "%= "
+                                         "^ "
+                                         "& "
+                                         "? "
+                                         "~ "
+                                         "| "
+                                         "|| "
+                                         "&& "
+                                         "<= "
+                                         ">= "
+                                         "== "
+                                         "!= "
+                                         "<< "
+                                         ">> "
+                                         "=> "
+                                         "-> "
+            );
             fmt::println("Tokens:");
             cxz::print_tokens(tokens);
 

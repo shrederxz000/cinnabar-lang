@@ -5,7 +5,6 @@
 #include "stdexcept"
 #include "unordered_set"
 #include "lexer/lexer.hpp"
-#include "utils/pos.hpp"
 #include "lexer/token.hpp"
 
 namespace cxz::lexer {
@@ -19,7 +18,7 @@ namespace cxz::lexer {
             switch (current_ch_) {
                 case '=': {
                     if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::EQ,2));}
-                    if (char_at(1) == '>') {tokens.push_back(emit(token::TokenKind::IMPL_ARR,2));}
+                    else if (char_at(1) == '>') {tokens.push_back(emit(token::TokenKind::IMPL_ARR,2));}
                     else {tokens.push_back(emit(token::TokenKind::ASSIGN,1));}break;
                 }
 
@@ -30,7 +29,7 @@ namespace cxz::lexer {
 
                 case '-': {
                     if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::MINUS_ASS,2));}
-                    if (char_at(1) == '>') {tokens.push_back(emit(token::TokenKind::RETURN_ARR,2));}
+                    else if (char_at(1) == '>') {tokens.push_back(emit(token::TokenKind::RETURN_ARR,2));}
                     else {tokens.push_back(emit(token::TokenKind::MINUS,1));}break;
                 }
 

@@ -1,6 +1,9 @@
+
+file(GLOB_RECURSE LEXER_TESTS CONFIGURE_DEPENDS lexer/*.cpp)
+#file(GLOB_RECURSE PARSER_TESTS CONFIGURE_DEPENDS parser/*.cpp)
+
 add_executable(cinnabar_tests
-    lexer_test.cpp
-    parser_test.cpp
+    ${LEXER_TESTS}
 )
 
 target_link_libraries(cinnabar_tests

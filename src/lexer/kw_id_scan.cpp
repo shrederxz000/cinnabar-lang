@@ -27,6 +27,7 @@ namespace cxz::lexer {
                 {"else",   token::TokenKind::ELSE},
                 {"switch", token::TokenKind::SWITCH},
                 {"case",   token::TokenKind::CASE},
+                {"default",   token::TokenKind::DEFAULT},
                 {"let",    token::TokenKind::LET},
                 {"const",  token::TokenKind::CONST},
                 {"for",    token::TokenKind::FOR},
