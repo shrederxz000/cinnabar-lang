@@ -3,22 +3,21 @@
 #include "string"
 #include "memory"
 #include "ast/node.hpp"
-#include "ast/program.hpp"
 
 namespace cxz::ast {
 
-        struct LetStmt final : Node {
+        struct LetDecl final : Decl {
             std::string name;
             bool has_const;
             token::TokenKind typing;
-            std::unique_ptr<Node> value;
+            std::unique_ptr<Expr> value;
 
-            LetStmt(std::string name,
+            LetDecl(std::string name,
                     bool has_const,
                     token::TokenKind typing,
-                    std::unique_ptr<Node> value,
+                    std::unique_ptr<Expr> value,
                     utils::Pos pos)
-            : Node(NodeKind::LetStmt, pos),
+            : Decl(NodeKind::LetDecl, pos),
                     name(std::move(name)),
                     has_const(has_const),
                     typing(typing),
