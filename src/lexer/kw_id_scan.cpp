@@ -43,6 +43,8 @@ namespace cxz::lexer {
                 {"print",  token::TokenKind::PRINT},
                 {"static",  token::TokenKind::STATIC},
                 {"pub",  token::TokenKind::PUBLIC},
+                {"class",  token::TokenKind::CLASS},
+                {"enum",  token::TokenKind::ENUM},
                 {"struct",  token::TokenKind::STRUCT},
                 {"scope",  token::TokenKind::SCOPE},
                 {"del",  token::TokenKind::DELETE},

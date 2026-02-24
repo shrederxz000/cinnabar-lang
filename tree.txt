@@ -1,268 +1,21 @@
 .
-├── cmake-build-debug
-│   ├── build.ninja
-│   ├── CMakeCache.txt
-│   ├── CMakeFiles
-│   │   ├── 4.0.2
-│   │   │   ├── CMakeCCompiler.cmake
-│   │   │   ├── CMakeCXXCompiler.cmake
-│   │   │   ├── CMakeDetermineCompilerABI_C.bin
-│   │   │   ├── CMakeDetermineCompilerABI_CXX.bin
-│   │   │   ├── CMakeSystem.cmake
-│   │   │   ├── CompilerIdC
-│   │   │   │   ├── a.out
-│   │   │   │   ├── CMakeCCompilerId.c
-│   │   │   │   └── tmp
-│   │   │   └── CompilerIdCXX
-│   │   │       ├── a.out
-│   │   │       ├── CMakeCXXCompilerId.cpp
-│   │   │       └── tmp
-│   │   ├── clion-Debug-log.txt
-│   │   ├── clion-environment.txt
-│   │   ├── cmake.check_cache
-│   │   ├── CMakeConfigureLog.yaml
-│   │   ├── CMakeScratch
-│   │   ├── fc-stamp
-│   │   │   └── fmt
-│   │   │       ├── download.stamp
-│   │   │       ├── fmt-gitclone-lastrun.txt
-│   │   │       ├── fmt-gitinfo.txt
-│   │   │       ├── fmt-patch-info.txt
-│   │   │       ├── fmt-update-info.txt
-│   │   │       ├── patch.stamp
-│   │   │       └── update.stamp
-│   │   ├── fc-tmp
-│   │   │   └── fmt
-│   │   │       ├── download.cmake
-│   │   │       ├── fmt-gitclone.cmake
-│   │   │       ├── fmt-gitupdate.cmake
-│   │   │       ├── patch.cmake
-│   │   │       └── update.cmake
-│   │   ├── InstallScripts.json
-│   │   ├── pkgRedirects
-│   │   ├── rules.ninja
-│   │   └── TargetDirectories.txt
-│   ├── cmake_install.cmake
-│   ├── _deps
-│   │   ├── fmt-build
-│   │   │   ├── CMakeFiles
-│   │   │   │   ├── Export
-│   │   │   │   │   └── b834597d9b1628ff12ae4314c3a2e4b8
-│   │   │   │   │       ├── fmt-targets.cmake
-│   │   │   │   │       └── fmt-targets-debug.cmake
-│   │   │   │   └── fmt.dir
-│   │   │   │       └── src
-│   │   │   │           ├── format.cc.o
-│   │   │   │           └── os.cc.o
-│   │   │   ├── cmake_install.cmake
-│   │   │   ├── fmt-config.cmake
-│   │   │   ├── fmt-config-version.cmake
-│   │   │   ├── fmt.pc
-│   │   │   ├── fmt-targets.cmake
-│   │   │   └── libfmtd.a
-│   │   ├── fmt-src
-│   │   │   ├── ChangeLog.md
-│   │   │   ├── CMakeLists.txt
-│   │   │   ├── CONTRIBUTING.md
-│   │   │   ├── doc
-│   │   │   │   ├── api.md
-│   │   │   │   ├── ChangeLog-old.md
-│   │   │   │   ├── fmt.css
-│   │   │   │   ├── fmt.js
-│   │   │   │   ├── get-started.md
-│   │   │   │   ├── index.md
-│   │   │   │   ├── perf.svg
-│   │   │   │   ├── python-license.txt
-│   │   │   │   └── syntax.md
-│   │   │   ├── include
-│   │   │   │   └── fmt
-│   │   │   │       ├── args.h
-│   │   │   │       ├── base.h
-│   │   │   │       ├── chrono.h
-│   │   │   │       ├── color.h
-│   │   │   │       ├── compile.h
-│   │   │   │       ├── core.h
-│   │   │   │       ├── format.h
-│   │   │   │       ├── format-inl.h
-│   │   │   │       ├── os.h
-│   │   │   │       ├── ostream.h
-│   │   │   │       ├── printf.h
-│   │   │   │       ├── ranges.h
-│   │   │   │       ├── std.h
-│   │   │   │       └── xchar.h
-│   │   │   ├── LICENSE
-│   │   │   ├── README.md
-│   │   │   ├── src
-│   │   │   │   ├── fmt.cc
-│   │   │   │   ├── format.cc
-│   │   │   │   └── os.cc
-│   │   │   ├── support
-│   │   │   │   ├── AndroidManifest.xml
-│   │   │   │   ├── Android.mk
-│   │   │   │   ├── bazel
-│   │   │   │   │   ├── BUILD.bazel
-│   │   │   │   │   ├── MODULE.bazel
-│   │   │   │   │   ├── README.md
-│   │   │   │   │   └── WORKSPACE.bazel
-│   │   │   │   ├── build.gradle
-│   │   │   │   ├── check-commits
-│   │   │   │   ├── cmake
-│   │   │   │   │   ├── FindSetEnv.cmake
-│   │   │   │   │   ├── fmt-config.cmake.in
-│   │   │   │   │   ├── fmt.pc.in
-│   │   │   │   │   └── JoinPaths.cmake
-│   │   │   │   ├── C++.sublime-syntax
-│   │   │   │   ├── docopt.py
-│   │   │   │   ├── mkdocs
-│   │   │   │   ├── mkdocs.yml
-│   │   │   │   ├── printable.py
-│   │   │   │   ├── python
-│   │   │   │   │   └── mkdocstrings_handlers
-│   │   │   │   │       └── cxx
-│   │   │   │   │           ├── __init__.py
-│   │   │   │   │           └── templates
-│   │   │   │   │               └── README
-│   │   │   │   ├── README
-│   │   │   │   ├── release.py
-│   │   │   │   └── Vagrantfile
-│   │   │   └── test
-│   │   │       ├── add-subdirectory-test
-│   │   │       │   ├── CMakeLists.txt
-│   │   │       │   └── main.cc
-│   │   │       ├── args-test.cc
-│   │   │       ├── assert-test.cc
-│   │   │       ├── base-test.cc
-│   │   │       ├── chrono-test.cc
-│   │   │       ├── CMakeLists.txt
-│   │   │       ├── color-test.cc
-│   │   │       ├── compile-error-test
-│   │   │       │   └── CMakeLists.txt
-│   │   │       ├── compile-fp-test.cc
-│   │   │       ├── compile-test.cc
-│   │   │       ├── cuda-test
-│   │   │       │   ├── CMakeLists.txt
-│   │   │       │   ├── cpp14.cc
-│   │   │       │   └── cuda-cpp14.cu
-│   │   │       ├── detect-stdfs.cc
-│   │   │       ├── enforce-checks-test.cc
-│   │   │       ├── find-package-test
-│   │   │       │   ├── CMakeLists.txt
-│   │   │       │   └── main.cc
-│   │   │       ├── format-impl-test.cc
-│   │   │       ├── format-test.cc
-│   │   │       ├── fuzzing
-│   │   │       │   ├── build.sh
-│   │   │       │   ├── chrono-duration.cc
-│   │   │       │   ├── chrono-timepoint.cc
-│   │   │       │   ├── CMakeLists.txt
-│   │   │       │   ├── float.cc
-│   │   │       │   ├── fuzzer-common.h
-│   │   │       │   ├── main.cc
-│   │   │       │   ├── named-arg.cc
-│   │   │       │   ├── one-arg.cc
-│   │   │       │   ├── README.md
-│   │   │       │   └── two-args.cc
-│   │   │       ├── gtest
-│   │   │       │   ├── CMakeLists.txt
-│   │   │       │   ├── gmock
-│   │   │       │   │   └── gmock.h
-│   │   │       │   ├── gmock-gtest-all.cc
-│   │   │       │   └── gtest
-│   │   │       │       ├── gtest.h
-│   │   │       │       └── gtest-spi.h
-│   │   │       ├── gtest-extra.cc
-│   │   │       ├── gtest-extra.h
-│   │   │       ├── gtest-extra-test.cc
-│   │   │       ├── header-only-test.cc
-│   │   │       ├── mock-allocator.h
-│   │   │       ├── module-test.cc
-│   │   │       ├── no-builtin-types-test.cc
-│   │   │       ├── noexception-test.cc
-│   │   │       ├── os-test.cc
-│   │   │       ├── ostream-test.cc
-│   │   │       ├── perf-sanity.cc
-│   │   │       ├── posix-mock.h
-│   │   │       ├── posix-mock-test.cc
-│   │   │       ├── printf-test.cc
-│   │   │       ├── ranges-odr-test.cc
-│   │   │       ├── ranges-test.cc
-│   │   │       ├── scan.h
-│   │   │       ├── scan-test.cc
-│   │   │       ├── static-export-test
-│   │   │       │   ├── CMakeLists.txt
-│   │   │       │   ├── library.cc
-│   │   │       │   └── main.cc
-│   │   │       ├── std-test.cc
-│   │   │       ├── test-assert.h
-│   │   │       ├── test-main.cc
-│   │   │       ├── unicode-test.cc
-│   │   │       ├── util.cc
-│   │   │       ├── util.h
-│   │   │       └── xchar-test.cc
-│   │   └── fmt-tmp
-│   ├── src
-│   │   ├── Cinnabar
-│   │   ├── CMakeFiles
-│   │   │   └── Cinnabar.dir
-│   │   │       ├── CXX.dd
-│   │   │       ├── CXXDependInfo.json
-│   │   │       ├── CXXModules.json
-│   │   │       ├── lexer
-│   │   │       │   ├── kw_id_scan.cpp.ddi
-│   │   │       │   ├── kw_id_scan.cpp.o
-│   │   │       │   ├── kw_id_scan.cpp.o.ddi
-│   │   │       │   ├── kw_id_scan.cpp.o.ddi.d
-│   │   │       │   ├── kw_id_scan.cpp.o.ddi.i
-│   │   │       │   ├── kw_id_scan.cpp.o.modmap
-│   │   │       │   ├── scaner.cpp.ddi
-│   │   │       │   ├── scaner.cpp.o
-│   │   │       │   ├── scaner.cpp.o.ddi
-│   │   │       │   ├── scaner.cpp.o.ddi.d
-│   │   │       │   ├── scaner.cpp.o.ddi.i
-│   │   │       │   ├── scaner.cpp.o.modmap
-│   │   │       │   ├── simple.cpp.ddi
-│   │   │       │   ├── simple.cpp.o
-│   │   │       │   ├── simple.cpp.o.ddi
-│   │   │       │   ├── simple.cpp.o.ddi.d
-│   │   │       │   ├── simple.cpp.o.ddi.i
-│   │   │       │   ├── simple.cpp.o.modmap
-│   │   │       │   ├── utils.cpp.ddi
-│   │   │       │   ├── utils.cpp.o
-│   │   │       │   ├── utils.cpp.o.ddi
-│   │   │       │   ├── utils.cpp.o.ddi.d
-│   │   │       │   ├── utils.cpp.o.ddi.i
-│   │   │       │   └── utils.cpp.o.modmap
-│   │   │       ├── main.cpp.ddi
-│   │   │       ├── main.cpp.o
-│   │   │       ├── main.cpp.o.ddi
-│   │   │       ├── main.cpp.o.ddi.d
-│   │   │       ├── main.cpp.o.ddi.i
-│   │   │       ├── main.cpp.o.modmap
-│   │   │       └── parser
-│   │   │           ├── parser.cpp.ddi
-│   │   │           ├── parser.cpp.o
-│   │   │           ├── parser.cpp.o.ddi
-│   │   │           ├── parser.cpp.o.ddi.d
-│   │   │           ├── parser.cpp.o.ddi.i
-│   │   │           └── parser.cpp.o.modmap
-│   │   └── cmake_install.cmake
-│   └── Testing
-│       └── Temporary
-│           └── LastTest.log
 ├── CMakeLists.txt
 ├── Formating guide.md
 ├── include
 │   ├── ast
 │   │   ├── expr.hpp
 │   │   ├── exprs
+│   │   │   ├── assign_expr.hpp
 │   │   │   ├── binary_expr.hpp
+│   │   │   ├── call_expr.hpp
 │   │   │   ├── identifier_expr.hpp
 │   │   │   ├── literal_expr.hpp
 │   │   │   └── unary_expr.hpp
 │   │   ├── node.hpp
-│   │   ├── program.hpp
 │   │   ├── stmt.hpp
 │   │   └── stmts
+│   │       ├── expr_stmt.hpp
+│   │       ├── function_stmt.hpp
 │   │       ├── if_stmt.hpp
 │   │       ├── let_stmt.hpp
 │   │       └── return_stmt.hpp
@@ -282,16 +35,285 @@
 │   ├── lexer
 │   │   ├── CMakeLists.txt
 │   │   ├── kw_id_scan.cpp
+│   │   ├── lexer.cpp
 │   │   ├── scaner.cpp
-│   │   ├── simple.cpp
 │   │   └── utils.cpp
 │   ├── main.cpp
 │   └── parser
-│       ├── CMakeLIsts.txt
+│       ├── CMakeLists.txt
 │       ├── expr.cpp
 │       ├── parser.cpp
 │       ├── stmt.cpp
 │       └── utils.cpp
+├── tests
+│   ├── CMakeLists.txt
+│   ├── lexer
+│   │   ├── bool_literal_test.cpp
+│   │   ├── char_literal_test.cpp
+│   │   ├── comment_test.cpp
+│   │   ├── delimeters_test.cpp
+│   │   ├── EOF_test.cpp
+│   │   ├── escape_sequence_test.cpp
+│   │   ├── float_literal_test.cpp
+│   │   ├── int_literal_test.cpp
+│   │   ├── kw_id_test.cpp
+│   │   ├── operator_test.cpp
+│   │   ├── position_test.cpp
+│   │   ├── simple_let_stmt_test.cpp
+│   │   ├── stress_test_1.cpp
+│   │   ├── string_literal_test.cpp
+│   │   └── unexpected_syntax_test.cpp
+│   └── parser_test.cpp
 └── tree.txt
 
-61 directories, 234 files
+121 directories, 686 files
+
+// include/ast/assign_expr.hpp
+#pragma once
+#include "memory"
+#include "utils/pos.hpp"
+#include "ast/node.hpp"
+namespace cxz::ast {struct AssignExpr final : Expr {std::unique_ptr<Expr> target;std::unique_ptr<Expr> value;};}
+
+// include/ast/exprs/binary_expr.hpp
+#pragma once
+#include "cstdint"
+#include "string"
+#include "variant"
+#include "memory"
+#include "utils/pos.hpp"
+#include "ast/node.hpp"
+namespace cxz::ast {enum class BinaryOp {ADD, SUB, MUL, DIV, MOD, POW,EQ, NEQ, LT, GT, LE, GE,};struct BinaryExpr final : Expr {BinaryOp op;std::unique_ptr<Expr> lhs;std::unique_ptr<Expr> rhs;BinaryExpr(BinaryOp op,std::unique_ptr<Expr> lhs,std::unique_ptr<Expr> rhs,utils::Pos pos): Expr(NodeKind::BinaryExpr, pos),op(op),lhs(std::move(lhs)),rhs(std::move(rhs)) {}};}
+
+// include/ast/exprs/call_expr.hpp
+#pragma once
+#include <memory>
+#include <vector>
+#include "utils/pos.hpp"
+#include "ast/node.hpp"
+namespace cxz::ast {
+struct CallExpr final : Expr {std::unique_ptr<Expr> callee;std::vector<std::unique_ptr<Expr>> arguments;CallExpr(std::unique_ptr<Expr> callee,std::vector<std::unique_ptr<Expr>> arguments,utils::Pos pos): Expr(NodeKind::CallExpr, pos),callee(std::move(callee)),arguments(std::move(arguments)) {}};}
+
+// include/ast/exprs/identifier_exprs.hpp
+#pragma once
+#include "cstdint"
+#include "string"
+#include "variant"
+#include "memory"
+#include "utils/pos.hpp"
+#include "ast/node.hpp"
+namespace cxz::ast {struct Identifier final : Expr {std::string name;Identifier(std::string name, utils::Pos pos): Expr(NodeKind::Identifier, pos),name(std::move(name)) {}};}
+
+// include/ast/exprs/literal_expr.hpp
+#pragma once
+#include "cstdint"
+#include "string"
+#include "variant"
+#include "memory"
+#include "utils/pos.hpp"
+#include "ast/node.hpp"
+namespace cxz::ast {using LiteralValue = std::variant<std::monostate, int64_t,double,std::string,char,bool>;struct Literal final : Expr {LiteralValue value;Literal(LiteralValue val, utils::Pos pos): Expr(NodeKind::Literal, pos),value(std::move(val)) {}};}
+
+// include/ast/exprs/unary_expr.hpp
+#pragma once
+#include "cstdint"
+#include "string"
+#include "variant"
+#include "memory"
+#include "utils/pos.hpp"
+#include "ast/node.hpp"
+namespace cxz::ast {enum class UnaryOp {PLUS,MINUS,NOT,BIT_NOT,};struct UnaryExpr final : Expr {UnaryOp op;std::unique_ptr<Expr> operand;UnaryExpr(UnaryOp op,std::unique_ptr<Expr> operand,utils::Pos pos): Expr(NodeKind::UnaryExpr, pos),op(op),operand(std::move(operand)) {}};}
+
+// include/ast/stmts/expr_stmt.hpp
+#pragma once
+#include "memory"
+#include "utils/pos.hpp"
+#include "ast/node.hpp"
+namespace cxz::ast{struct ExprStmt final : Stmt {std::unique_ptr<Expr> expr;};}
+
+// include/ast/stmts/function_stmt.hpp
+#pragma once
+#include "memory"
+#include "utils/pos.hpp"
+#include "ast/node.hpp"
+namespace cxz::ast{struct FuncStmt : Stmt {std::string name;std::string return_type;std::unique_ptr<Expr> args;std::unique_ptr<Block> body;FuncStmt(std::string name,std::string return_type,std::unique_ptr<Expr> args,std::unique_ptr<Block> body, utils::Pos pos):Stmt(NodeKind::FuncStmt, pos),name(std::move(name)),return_type(std::move(return_type)),args(std::move(args)),body(std::move(body)) {}};}
+
+// include/ast/stmts/if_stmt.hpp
+#pragma once
+#include "string"
+#include "memory"
+#include "ast/node.hpp"
+namespace cxz::ast {struct IfStmt final : Stmt {std::unique_ptr<Expr> condition;std::unique_ptr<Block> then_branch;std::unique_ptr<Block> else_branch;IfStmt(std::unique_ptr<Expr> cond,std::unique_ptr<Block> then_b,std::unique_ptr<Block> else_b,utils::Pos pos): Stmt(NodeKind::IfStmt, pos),condition(std::move(cond)),then_branch(std::move(then_b)),else_branch(std::move(else_b)) {}};}
+
+// include/ast/stmts/let_stmt.hpp
+#pragma once
+#include "string"
+#include "memory"
+#include "ast/node.hpp"
+namespace cxz::ast {struct LetStmt final : Stmt {std::string name;bool has_const;token::TokenKind typing;std::unique_ptr<Expr> value;LetStmt(std::string name,bool has_const,token::TokenKind typing,std::unique_ptr<Expr> value,utils::Pos pos): Stmt(NodeKind::LetStmt, pos),name(std::move(name)),has_const(has_const),typing(typing),value(std::move(value)) {}};}
+
+// include/ast/stmts/return_stmt.hpp
+#pragma once
+#include "string"
+#include "memory"
+#include "ast/node.hpp"
+namespace cxz::ast {struct ReturnStmt final : Stmt {std::unique_ptr<Expr> value;ReturnStmt(std::unique_ptr<Expr> value, utils::Pos pos): Stmt(NodeKind::ReturnStmt, pos),value(std::move(value)) {}};}
+
+// include/ast/expr.hpp
+#pragma once
+#include "ast/exprs/binary_expr.hpp"
+#include "ast/exprs/identifier_expr.hpp"
+#include "ast/exprs/literal_expr.hpp"
+#include "ast/exprs/unary_expr.hpp"
+#include "ast/exprs/assign_expr.hpp"
+#include "ast/exprs/call_expr.hpp"
+
+// include/ast/node.hpp
+#pragma once
+#include "utils/pos.hpp"
+namespace cxz::ast {enum class NodeKind {Program,Block,LetStmt,ReturnStmt,ExprStmt,IfStmt,WhileStmt,ForStmt,BinaryExpr,UnaryExpr,CallExpr,Identifier,Literal,FuncStmt,};struct Node {NodeKind kind;utils::Pos pos;explicit Node(NodeKind k, utils::Pos p): kind(k), pos(p) {} virtual ~Node() = default;};struct Stmt : Node {using Node::Node;virtual ~Stmt() = default;};struct Expr : Node {using Node::Node;virtual ~Expr() = default;};struct Program final : Node {std::vector<std::unique_ptr<Node>> body;Program(utils::Pos pos): Node(NodeKind::Program, pos) {}};struct Block final : Node {std::vector<std::unique_ptr<Stmt>> statements;Block(utils::Pos pos): Node(NodeKind::Block, pos) {}};}
+
+// include/ast/stmt.hpp
+#pragma once
+#include "ast/stmts/if_stmt.hpp"
+#include "ast/stmts/let_stmt.hpp"
+#include "ast/stmts/return_stmt.hpp"
+#include "ast/stmts/expr_stmt.hpp"
+
+// lexer/lexer.hpp
+#pragma once
+#include "string"
+#include "vector"
+#include "string_view"
+#include "lexer/token.hpp"
+#include "utils/pos.hpp"
+namespace cxz::lexer {class Lexer {private:{std::string_view code_;size_t cursor_ = 0;size_t code_length_ = code_.size();char current_ch_ = '\0';utils::Pos pos_;void reset(std::string_view filepath, std::string_view code);void advance();char char_at(size_t jmp = 0);void skip_whitespace();void skip_comments();token::Token scan_number();token::Token scan_string();token::Token scan_char();token::Token scan_id_or_keyword();token::Token emit(token::TokenKind kind, size_t len = 1);}public:{Lexer() = default;std::vector<token::Token> tokenize(std::string_view filepath, std::string_view code);};}}
+
+// include/lexer/token.hpp
+#pragma once
+#include "variant"
+#include "cstdint"
+#include "utils/pos.hpp"
+namespace cxz::token {enum class TokenKind {PLUS,PLUS_ASS,MINUS,MINUS_ASS,SLASH,SLASH_ASS,STAR,STAR_ASS,POW,POW_ASS,ASSIGN,AT,BANG,HASH,DOLLAR,PERCENT,PERCENT_ASS,CARET,AMPERSAND,QUESTION,TILDE,PIPE,OR,AND,RPAR,LPAR,LBRACE,RBRACE,LBRACKET,RBRACKET,COLON,DCOLON,SEMICOLON,DOT,RANGE,ELLIPSIS,COMMA,LT,GT,LE,GE,EQ,NEQ,SHIFT_LEFT,SHIFT_RIGHT,IMPL_ARR,RETURN_ARR,ID,IF,ELSE,SWITCH,CASE,DEFAULT,LET,CONST,WHILE,FOR,BREAK,CONTINUE,DEF,RETURN,FLOAT,INT,STR,CHAR,BOOL,PRINT,STATIC,PUBLIC,STRUCT,CLASS,ENUM,SCOPE,ASYNC,SPAWN,DELETE,INT_LITERAL,FLOAT_LITERAL,STRING_LITERAL,CHAR_LITERAL,BOOL_LITERAL,Eof,};inline const char* to_string(TokenKind kind) {switch (kind) {case TokenKind::PLUS:{return "PLUS";}case TokenKind::MINUS:{return "MINUS";}case TokenKind::SLASH:{return "SLASH";}case TokenKind::STAR:{return " STAR";}case TokenKind::ASSIGN:{return "ASSIGN";}case TokenKind::AT:{return "AT";}case TokenKind::BANG:{return "BANG";}case TokenKind::HASH:{return "HASH";}case TokenKind::DOLLAR:{return "DOLLAR";}case TokenKind::PERCENT:{return "PERCENT";}case TokenKind::CARET:{return "CARET";}case TokenKind::AMPERSAND:{return "AMPERSAND";}case TokenKind::QUESTION:{return "QUESTION";}case TokenKind::TILDE:{return "TILDE";}case TokenKind::RPAR:{return "RPAR";}case TokenKind::LPAR:{return "LPAR";}case TokenKind::LBRACE:{return "LBRACE";}case TokenKind::RBRACE:{return "RBRACE";}case TokenKind::LBRACKET:{return "LBRACKET";}case TokenKind::RBRACKET:{return "RBRACKET";}case TokenKind::COLON:{return "COLON";}case TokenKind::SEMICOLON:{return "SEMICOLON";}case TokenKind::DOT:{return "DOT";}case TokenKind::COMMA:{return "COMMA";}case TokenKind::LT:{return "LT";}case TokenKind::GT:{return "GT";}case TokenKind::ID:{return "ID";}case TokenKind::IF:{return "IF";}case TokenKind::ELSE:{return "ELSE";}case TokenKind::SWITCH:{return "SWITCH";}case TokenKind::CASE:{return "CASE";}case TokenKind::LET:{return "LET";}case TokenKind::CONST:{return "CONST";}case TokenKind::WHILE:{return "WHILE";}case TokenKind::FOR:{return "FOR";}case TokenKind::BREAK:{return "BREAK";}case TokenKind::CONTINUE:{return "CONTINUE";}case TokenKind::DEF:{return "DEF";}case TokenKind::RETURN:{return "RETURN";}case TokenKind::FLOAT:{return "FLOAT";}case TokenKind::INT:{return "INT";}case TokenKind::STR:{return "STR";}case TokenKind::CHAR:{return "CHAR";}case TokenKind::PRINT:{return "PRINT";}case TokenKind::STATIC:{return "STATIC";}case TokenKind::PUBLIC:{return "PUBLIC";}case TokenKind::STRUCT:{return "STRUCT";}case TokenKind::SCOPE:{return "SCOPE";}case TokenKind::ASYNC:{return "ASYNC";}case TokenKind::SPAWN:{return "SPAWN";}case TokenKind::DELETE:{return "DELETE";}case TokenKind::INT_LITERAL:{return "INT_LITERAL";}case TokenKind::FLOAT_LITERAL:{return "FLOAT_LITERAL";}case TokenKind::STRING_LITERAL:{return "STRING_LITERAL";}case TokenKind::CHAR_LITERAL:{return "CHAR_LITERAL";}case TokenKind::BOOL_LITERAL:{return "BOOL_LITERAL";}case TokenKind::Eof:{return "EOF";}default:{return "<unknown>";}}}using TokenValue = std::variant<std::monostate,int64_t,double,std::string,char,bool>;class Token {private:{TokenKind kind_;TokenValue value_;utils::Pos pos_;}public:{Token(TokenKind kind, utils::Pos pos):kind_(kind),value_(std::monostate{}),pos_(pos){}template<typename T>Token(TokenKind kind, T&& value, utils::Pos pos):kind_(kind),value_(std::forward<T>(value)),pos_(pos) {}TokenKind kind() const noexcept { return kind_;}const utils::Pos& pos() const noexcept {return pos_;}const TokenValue& value() const noexcept {return value_;}bool has_value() const noexcept {return !std::holds_alternative<std::monostate>(value_);}template <typename T>bool is() const noexcept {return std::holds_alternative<T>(value_);}template <typename T>const T& as() const {return std::get<T>(value_);}}};}
+
+// include/parsrer/parser.cpp
+#pragma once
+#include "vector"
+#include "memory"
+#include "tuple"
+#include "lexer/token.hpp"
+#include "ast/program.hpp"
+#include "ast/expr.hpp"
+#include "ast/stmt.hpp"
+namespace cxz::parser {class Parser{private:{const std::vector<token::Token>& tokens_;size_t pos_ = 0;std::unique_ptr<ast::Node> parse_statement();std::unique_ptr<ast::Node> parse_let();std::unique_ptr<ast::Node> parse_expr_stmt();std::unique_ptr<ast::Node> parse_return();std::unique_ptr<ast::Node> parse_expression(int min_prec = 0);std::unique_ptr<ast::Node> parse_prefix();static std::tuple<int, int> precedence(token::TokenKind kind);std::unique_ptr<ast::Node> parse_assignment();std::unique_ptr<ast::Node> parse_func_call();std::unique_ptr<ast::Block> parse_block();bool is_binary_op(token::TokenKind kind) const;const token::Token& peek(size_t offset = 0) const;const token::Token& advance();bool match(token::TokenKind kind);void expect(token::TokenKind kind, const chaar* msg);}public:{explicit Parser(const std::vector<token::Token>& tokens);std::unique_ptr<ast::Program> parse_program();}};}
+
+// include/utils/io.hpp
+#pragma once
+#include "fstream"
+#include "string"
+#include "stdexcept"
+namespace cxz::utils {std::string read_file(const std::string& filepath) {std::ifstream file(filepath, std::ios::in | std::ios::binary);if (!file) {throw std::runtime_error("Failed to open file: " + filepath);}std::string content;std::string line;while (std::getline(file, line)) {content += line;content += '\n';}return content;}}
+
+// include/utils/pos.hpp
+#pragma once
+#include "string_view"
+namespace cxz::utils {struct Pos{std::string_view filepath;size_t line;size_t column;};}
+
+// include/cinnabar.hpp
+#pragma once
+#include "vector"
+#include "lexer/token.hpp"
+#include "ast/node.hpp"
+namespace cxz{void print_tokens(const std::vector<token::Token>& tokens);void print_ast(constast::Node* node, int indent = 0);}
+
+// src/lexer/kw_id_scan.cpp
+#include "string_view"
+#include "unordered_map"
+#include "string"
+#include "stdexcept"
+#include "unordered_set"
+#include "lexer/lexer.hpp"
+#include "utils/pos.hpp"
+#include "lexer/token.hpp"
+namespace cxz::lexer {token::Token Lexer::scan_id_or_keyword() {size_t start = cursor_;utils::Pos start_pos = pos_;while (std::isalnum(static_cast<unsigned char>(current_ch_))|| current_ch_ == '_') {advance();}size_t len = cursor_ - start;std::string value(code_.substr(start, len));static const std::unordered_map<std::string,token::TokenKind> keywords = {{"if",token::TokenKind::IF},{"else",token::TokenKind::ELSE},{"switch",token::TokenKind::SWITCH},{"case",token::TokenKind::CASE},{"default",token::TokenKind::DEFAULT},{"let",token::TokenKind::LET},{"const",token::TokenKind::CONST},{"for",token::TokenKind::FOR},{"while",token::TokenKind::WHILE},{"break",  token::TokenKind::BREAK},{"continue",token::TokenKind::CONTINUE},{"def",token::TokenKind::DEF},{"return",token::TokenKind::RETURN},{"int",token::TokenKind::INT},{"float",token::TokenKind::FLOAT},{"str",token::TokenKind::STR},{"char",token::TokenKind::CHAR},{"print",token::TokenKind::PRINT},{"static",token::TokenKind::STATIC},{"pub",token::TokenKind::PUBLIC},{"class",token::TokenKind::CLASS},{"enum",token::TokenKind::ENUM},{"struct",token::TokenKind::STRUCT},{"scope",token::TokenKind::SCOPE},{"del",token::TokenKind::DELETE},{"bool", token::TokenKind::BOOL},{"true",token::TokenKind::BOOL_LITERAL},{"false",token::TokenKind::BOOL_LITERAL}};std::unordered_map<std::string,token::TokenKind> keywords auto it = keywords.find(value);if (it != keywords.end()) {switch (it->second) {case token::TokenKind::BOOL_LITERAL:{return token::Token(token::TokenKind::BOOL_LITERAL,value == "true",start_pos);}default:{return token::Token(it->second, value, start_pos);}}}return token::Token(token::TokenKind::ID, value, start_pos);}}
+
+// src/lexer/lexer.cpp
+#include "string_view"
+#include "unordered_map"
+#include "string"
+#include "stdexcept"
+#include "unordered_set"
+#include "lexer/lexer.hpp"
+#include "lexer/token.hpp"
+namespace cxz::lexer {std::vector<token::Token>Lexer::tokenize(std::string_view filepath,std::string_view code) {reset(filepath, code);std::vector<token::Token> tokens;while (current_ch_ != '\0' && cursor_ < code_length_)  {switch (current_ch_) {case '=': {if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::EQ,2));}else if (char_at(1) == '>') {tokens.push_back(emit(token::TokenKind::IMPL_ARR,2));}else {tokens.push_back(emit(token::TokenKind::ASSIGN,1));}break;}case '+': {if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::PLUS_ASS,2));}else {tokens.push_back(emit(token::TokenKind::PLUS,1));}break;}case '-': {if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::MINUS_ASS,2));}else if (char_at(1) == '>') {tokens.push_back(emit(token::TokenKind::RETURN_ARR,2));}else {tokens.push_back(emit(token::TokenKind::MINUS,1));}break;}case '/': {if (char_at(1) == '*' || char_at(1) == '/') {skip_comments();}else if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::SLASH_ASS,2));}else {tokens.push_back(emit(token::TokenKind::SLASH,1));}break;}case '*': {if (char_at(1) == '*' && char_at(2) == '=') {tokens.push_back(emit(token::TokenKind::POW_ASS,3));}else if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::STAR_ASS,2));}else if (char_at(1) == '*') {tokens.push_back(emit(token::TokenKind::POW,2));}else {tokens.push_back(emit(token::TokenKind::STAR,1));}break;}case '&': {if (char_at(1) == '&') {tokens.push_back(emit(token::TokenKind::AND,2));}else {tokens.push_back(emit(token::TokenKind::AMPERSAND,1));}break;}case '%': {if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::PERCENT_ASS,2));}else {tokens.push_back(emit(token::TokenKind::PERCENT,1));}break;}case '|': {if (char_at(1) == '|') {tokens.push_back(emit(token::TokenKind::OR,2));}else {tokens.push_back(emit(token::TokenKind::PIPE,1));}break;}case ':': {if (char_at(1) == ':') {tokens.push_back(emit(token::TokenKind::DCOLON,2));}else {tokens.push_back(emit(token::TokenKind::COLON,1));}break;}case '.': {if (char_at(1) == '.' && char_at(2) == '.') {tokens.push_back(emit(token::TokenKind::ELLIPSIS,3));}else if (char_at(1) == '.') {tokens.push_back(emit(token::TokenKind::RANGE,2));}else {tokens.push_back(emit(token::TokenKind::DOT,1));}break;}case '>': {if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::GE,2));}else if (char_at(1) == '>') {tokens.push_back(emit(token::TokenKind::SHIFT_RIGHT,2));}else {tokens.push_back(emit(token::TokenKind::GT,1));}break;}case '<': {if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::LE,2));}else if (char_at(1) == '<') {tokens.push_back(emit(token::TokenKind::SHIFT_LEFT,2));}else {tokens.push_back(emit(token::TokenKind::LT,1));}break;}case '!': {if (char_at(1) == '=') {tokens.push_back(emit(token::TokenKind::NEQ,2));}else {tokens.push_back(emit(token::TokenKind::BANG,1));}break;}case ';': {tokens.push_back(emit(token::TokenKind::SEMICOLON,1));break;}case '#': {tokens.push_back(emit(token::TokenKind::HASH,1));break;}case '$': {tokens.push_back(emit(token::TokenKind::DOLLAR,1));break;}case '(': {tokens.push_back(emit(token::TokenKind::LPAR,1));break;}case ')': {tokens.push_back(emit(token::TokenKind::RPAR,1));break;}case '[': {tokens.push_back(emit(token::TokenKind::LBRACKET,1));break;}case ']': {tokens.push_back(emit(token::TokenKind::RBRACKET,1));break;}case '{': {tokens.push_back(emit(token::TokenKind::LBRACE,1));break;}case '}': {tokens.push_back(emit(token::TokenKind::RBRACE,1));break;}case ',': {tokens.push_back(emit(token::TokenKind::COMMA,1));break;}case '\'': {tokens.push_back(scan_char());break;}case '"':{tokens.push_back(scan_string());break;}case '@': {tokens.push_back(emit(token::TokenKind::AT,1));break;}case '~': {tokens.push_back(emit(token::TokenKind::TILDE,1));break;}case '?': {tokens.push_back(emit(token::TokenKind::QUESTION,1));break;}case '^': {tokens.push_back(emit(token::TokenKind::CARET,1));break;}default: {if(isspace(current_ch_)) {skip_whitespace();}else if(isalpha(current_ch_) || current_ch_ == '_') {tokens.push_back(scan_id_or_keyword());}else if (isdigit(current_ch_)) {tokens.push_back(scan_number());}else {throw std::runtime_error("error: unexpected syntax");}}}}tokens.push_back(emit(token::TokenKind::Eof));return tokens;}}
+
+// src/lexer/scaner.cpp
+#include "string_view"
+#include "unordered_map"
+#include "string"
+#include "stdexcept"
+#include "unordered_set"
+#include "lexer/lexer.hpp"
+#include "utils/pos.hpp"
+#include "lexer/token.hpp"
+namespace cxz::lexer {token::Token Lexer::scan_number() {size_t start = cursor_;utils::Pos start_pos = pos_;while (std::isdigit(static_cast<unsigned char>(current_ch_))) {advance();}bool is_float = false;if (current_ch_ == '.' &&std::isdigit(static_cast<unsigned char>(char_at(1)))) {is_float = true;advance();while (std::isdigit(static_cast<unsigned char>(current_ch_))) {advance();}}size_t len = cursor_ - start;std::string value(code_.substr(start, len));if (is_float) {return token::Token(token::TokenKind::FLOAT_LITERAL,std::stod(value),start_pos);}return token::Token(token::TokenKind::INT_LITERAL,std::stoll(value),start_pos);}token::Token Lexer::scan_string() {utils::Pos start_pos = pos_;advance();std::string buffer;buffer.reserve(16);while (current_ch_ != '"' && current_ch_ != '\0') {char c;if (current_ch_ == '\\') {advance();switch (current_ch_) {case 'n':{c = '\n';break;}case 't':{c = '\t'; break;}case '"':{c = '\"'; break;}case '\\':{c = '\\'; break;}case 'r':{c = '\r'; break;}case 'a':{c = '\a'; break;}case 'b':{c = '\b'; break;}case '0':{c = '\0'; break;}default:{c = current_ch_;}}} else {c = current_ch_;}buffer.push_back(c);advance();}if (current_ch_ != '"') {throw std::runtime_error("error: lost closing double quote");}advance();return token::Token(token::TokenKind::STRING_LITERAL, buffer, start_pos);}token::Token Lexer::scan_char() {utils::Pos start_pos = pos_;advance();char value;if (current_ch_ == '\\') {advance();switch (current_ch_) {case 'n':{value = '\n';break;}case 't':{value = '\t'; break;}case '\'':{value = '\''; break;}case '\\':{value = '\\'; break;}case 'r':{value = '\r'; break;}case 'a':{value = '\a'; break;}case 'b':{value = '\b'; break;}case '0':{value = '\0'; break;}default:{value = current_ch_;}}} else {value = current_ch_;}advance();if (current_ch_ != '\'') {throw std::runtime_error("error:  lost closing quote or empty char");}advance();return token::Token(token::TokenKind::CHAR_LITERAL, value, start_pos);}}
+
+// src/lexer/utils.cpp
+#include "string_view"
+#include "unordered_map"
+#include "string"
+#include "stdexcept"
+#include "unordered_set"
+#include "lexer/lexer.hpp"
+#include "utils/pos.hpp"
+#include "lexer/token.hpp"
+namespace cxz::lexer {void Lexer::reset(std::string_view filepath, std::string_view code) {code_ = code;code_length_ = code_.size();cursor_ = 0;current_ch_ = code.empty() ? '\0' : code[0];pos_ = utils::Pos {filepath, 1, 1};}void Lexer::advance(){if (current_ch_ != '\0' && cursor_ < code_length_) {if (current_ch_ == '\n') {pos_.line++;pos_.column = 1;}else {pos_.column++;}cursor_++;current_ch_ = (cursor_ < code_length_) ? code_[cursor_]: '\0';}}char Lexer::char_at(size_t jmp) {if(cursor_ + jmp < code_length_) {return code_[cursor_ + jmp];} else {return '\0';}}void Lexer::skip_whitespace() {while(isspace(current_ch_)) {advance();}}void Lexer::skip_comments() {advance();if (current_ch_ == '/') {advance();while (current_ch_ != '\n' && current_ch_ != '\0') {advance();}} else if (current_ch_ == '*') {advance();while (current_ch_ != '\0') {if (current_ch_ == '*' && char_at(1) == '/') {advance();advance();return;}advance();}throw std::runtime_error("error: lost closing part of comment block");}}token::Token Lexer::emit(token::TokenKind kind, size_t len) {utils::Pos pos = pos_;token::Token result = token::Token(kind, pos);for (int i = 0; i < len; i++) {advance();}return result;}}
+
+// src/parser/parser.cpp
+#include "stdexcept"
+#include "tuple"
+#include "any"
+#include "memory"
+#include "lexer/token.hpp"
+#include "ast/program.hpp"
+#include "ast/expr.hpp"
+#include "parser/parser.hpp"
+namespace cxz::parser {std::unique_ptr<ast::Node> Parser::parse_expr_stmt() {auto expr = parse_expression();expect(token::TokenKind::SEMICOLON, "expected ';'");return expr;}std::tuple<int, int> Parser::precedence(token::TokenKind kind) {switch (kind) {case token::TokenKind::POW: {return {30, 0};} case token::TokenKind::STAR: {return {20, 1};}case token::TokenKind::SLASH: {return {20, 1};}case token::TokenKind::PLUS: {return {10, 1};}case token::TokenKind::MINUS: {return {10, 1};}case token::TokenKind::EQ: {return {5, 1};}case token::TokenKind::NEQ: {return {5, 1};}default: {return {0, 1};}}}std::unique_ptr<ast::Node> Parser::parse_prefix() {const auto& tok = advance();switch (tok.kind()) {case token::TokenKind::INT_LITERAL: {return std::make_unique<ast::Literal>(tok.value(), tok.pos());}case token::TokenKind::FLOAT_LITERAL: {return std::make_unique<ast::Literal>(tok.value(), tok.pos());}case token::TokenKind::STRING_LITERAL: {return std::make_unique<ast::Literal>(tok.value(), tok.pos());}case token::TokenKind::CHAR_LITERAL: {return std::make_unique<ast::Literal>(tok.value(), tok.pos());}case token::TokenKind::ID: {return std::make_unique<ast::Identifier>(tok.as<std::string>(),tok.pos());}case token::TokenKind::LPAR: {auto expr = parse_expression();expect(token::TokenKind::RPAR, "expected ')'");return expr;}default: {throw std::runtime_error("unexpected token in expression");}}}bool Parser::is_binary_op(token::TokenKind kind) const {switch (kind) {case token::TokenKind::PLUS:{return true;}case token::TokenKind::MINUS:{return true;}case token::TokenKind::STAR:{return true;}case token::TokenKind::SLASH:{return true;}case token::TokenKind::POW:{return true;}case token::TokenKind::EQ:{return true;}case token::TokenKind::NEQ:{return true;}case token::TokenKind::LT:{return true;}case token::TokenKind::LE:{return true;}case token::TokenKind::GT:{return true;}case token::TokenKind::GE:{return true;}default:{return false;}}}std::unique_ptr<ast::Node> Parser::parse_expression(int min_prec) {auto left = parse_prefix();while (true) {auto kind = peek().kind();auto [prec, prec_side] = precedence(kind);if (prec == 0 || prec < min_prec) {break;}auto op_tok = advance();auto right = parse_expression(prec + prec_side);ast::BinaryOp op;switch (op_tok.kind()) {case token::TokenKind::PLUS: {op = ast::BinaryOp::ADD; break;}case token::TokenKind::MINUS: {op = ast::BinaryOp::SUB; break;}case token::TokenKind::STAR: {op = ast::BinaryOp::MUL; break;}case token::TokenKind::SLASH: {op = ast::BinaryOp::DIV; break;}case token::TokenKind::POW: {op = ast::BinaryOp::POW; break;}default: {throw std::runtime_error("unknown binary operator");}}left = std::make_unique<ast::BinaryExpr>(op,std::move(left),std::move(right),op_tok.pos());}return left;}}
+
+// src/parser/parser.cpp
+#include "vector"
+#include "any"
+#include "memory"
+#include "lexer/token.hpp"
+#include "ast/program.hpp"
+#include "parser/parser.hpp"
+namespace cxz::parser {Parser::Parser(const std::vector<token::Token>& tokens): tokens_(tokens) {}std::unique_ptr<ast::Program> Parser::parse_program() {auto prog = std::make_unique<ast::Program>(peek().pos());while (peek().kind() != token::TokenKind::Eof) {prog->body.push_back(parse_statement());}return prog;}std::unique_ptr<ast::Block> Parser::parse_block() {auto block = std::make_unique<ast::Block>(peek().pos());expect(token::TokenKind::LBRACE, "expected '{'");while (peek().kind() != token::TokenKind::RBRACE) {block->statements.push_back(parse_statement());}expect(token::TokenKind::RBRACE, "expected '}'");return block;}}
+
+// src/parser/parser.cpp
+#include "stdexcept"
+#include "any"
+#include "memory"
+#include "lexer/token.hpp"
+#include "ast/program.hpp"
+#include "ast/stmt.hpp"
+#include "parser/parser.hpp"
+namespace cxz::parser {std::unique_ptr<ast::Node> Parser::parse_statement() {switch (peek().kind()) {case token::TokenKind::LET: {return parse_let();}case token::TokenKind::CONST: {return parse_let();}case token::TokenKind::RETURN: {return parse_return();}default: {return parse_expr_stmt();}}std::unique_ptr<ast::Node> Parser::parse_let() {bool is_const = match(token::TokenKind::CONST);if (!is_const) {expect(token::TokenKind::LET, "expected 'let'");}expect(token::TokenKind::ID, "expected identifier");auto name = tokens_[pos_ - 1];  // токен, который съел expectexpect(token::TokenKind::COLON, "expected ':'");auto typing = advance(); // тип (int / float / etc)expect(token::TokenKind::ASSIGN, "expected '='");auto value = parse_expression();expect(token::TokenKind::SEMICOLON, "expected ';'");return std::make_unique<ast::LetStmt>(name.as<std::string>(),is_const,typing.kind(),std::move(value),name.pos());}std::unique_ptr<ast::Node> Parser::parse_return() {auto kw = advance();auto value = parse_expression();expect(token::TokenKind::SEMICOLON, "expected ';'");return std::make_unique<ast::ReturnStmt>(std::move(value),kw.pos());}}
+
+// src/parser/parser.cpp
+#include "stdexcept"
+#include "vector"
+#include "any"
+#include "lexer/token.hpp"
+#include "parser/parser.hpp"
+namespace cxz::parser {const token::Token& Parser::peek(size_t offset) const {if (pos_ + offset >= tokens_.size()){return tokens_.back();}return tokens_[pos_ + offset];}const token::Token& Parser::advance() {return tokens_[pos_++];}bool Parser::match(token::TokenKind kind) {if (peek().kind() == kind) {advance();return true;}returnfalse;}void Parser::expect(token::TokenKind kind, const char* msg) {if (!match(kind)){throwstd::runtime_error(msg);}}}
+
+// src/main.cpp
+#include "fmt/core.h"
+#include "cinnabar.hpp"
+#include "utils/io.hpp"
+#include "lexer/token.hpp"
+#include "lexer/lexer.hpp"
+#include "parser/parser.hpp"
+#include "ast/node.hpp"
+#include "ast/program.hpp"
+namespace cxz {void print_tokens(const std::vector<cxz::token::Token>& tokens) {for (const auto& tok : tokens) {fmt::print("{} at {}:{}\n", cxz::token::to_string(tok.kind()), tok.pos().line, tok.pos().column);}}void print_ast(const cxz::ast::Node* node, int indent) {std::string pad(indent, ' ');using namespace cxz::ast;switch (node->kind) {case NodeKind::Program: {fmt::println("{}Program", pad);const auto* prog = static_cast<const Program*>(node);for (const auto& stmt : prog->body) print_ast(stmt.get(), indent + 2);break;}case NodeKind::Block: {fmt::println("{}Block", pad);const auto* block = static_cast<const Block*>(node);for (const auto& stmt : block->statements) print_ast(stmt.get(), indent + 2);break;}case NodeKind::LetStmt: {const auto* let_stmt = static_cast<const LetStmt*>(node);fmt::println("{}LetStmt {}{} = ...", pad, let_stmt->has_const ? "const " : "", let_stmt->name);break;}case NodeKind::ReturnStmt: {fmt::println("{}ReturnStmt", pad);break;}case NodeKind::BinaryExpr: {fmt::println("{}BinaryExpr", pad);break;}case NodeKind::Identifier: {const auto* id = static_cast<const Identifier*>(node);fmt::println("{}Identifier {}", pad, id->name);break;}case NodeKind::Literal: {fmt::println("{}Literal", pad);break;}default: fmt::println("{}<unknown node>", pad);}}}int main(int argc, char* argv[]) {for (int i = 1; i < argc; ++i) {try {std::string filename = argv[i];std::string content = cxz::utils::read_file(filename);fmt::println("File: {}", filename);fmt::println("Content:\n{}", content);cxz::lexer::Lexer lexer;auto tokens = lexer.tokenize("test","+ ""+= ""- ""-= ""/ ""/= ""* ""*= ""** ""**= ""= ""@ ""! ""# ""$ ""% ""%= ""^ ""& ""? ""~ ""| ""|| ""&& ""<= "">= ""== ""!= ""<< "">> ""=> ""-> ");fmt::println("Tokens:");cxz::print_tokens(tokens);cxz::parser::Parser parser(tokens);auto ast = parser.parse_program();fmt::println("AST:");cxz::print_ast(ast.get());} catch (const std::exception& e) {fmt::println("Error processing file '{}': {}", argv[i], e.what());}}return 0;}

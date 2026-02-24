@@ -79,6 +79,8 @@ enum class TokenKind {
     STATIC,
     PUBLIC,
     STRUCT,
+    CLASS,
+    ENUM,
     SCOPE,
     ASYNC,
     SPAWN,

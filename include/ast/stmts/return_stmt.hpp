@@ -3,15 +3,14 @@
 #include "string"
 #include "memory"
 #include "ast/node.hpp"
-#include "ast/program.hpp"
 
 namespace cxz::ast {
 
-        struct ReturnStmt final : Node {
-            std::unique_ptr<Node> value;
+        struct ReturnStmt final : Stmt {
+            std::unique_ptr<Expr> value;
 
-            ReturnStmt(std::unique_ptr<Node> value, utils::Pos pos)
-            : Node(NodeKind::ReturnStmt, pos),
+            ReturnStmt(std::unique_ptr<Expr> value, utils::Pos pos)
+            : Stmt(NodeKind::ReturnStmt, pos),
                     value(std::move(value)) {}
         };// struct ReturnStmt
 

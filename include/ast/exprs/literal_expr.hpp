@@ -4,17 +4,18 @@
 #include "string"
 #include "variant"
 #include "memory"
+#include "utils/pos.hpp"
 #include "ast/node.hpp"
 
 namespace cxz::ast {
 
 using LiteralValue = std::variant<std::monostate, int64_t,double,std::string,char,bool>;
 
-struct Literal final : Node {
+struct Literal final : Expr {
     LiteralValue value;
 
     Literal(LiteralValue val, utils::Pos pos)
-        : Node(NodeKind::Literal, pos),
+        : Expr(NodeKind::Literal, pos),
           value(std::move(val)) {}
 };// struct Literal
 

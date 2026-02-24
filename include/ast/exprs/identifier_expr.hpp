@@ -4,15 +4,16 @@
 #include "string"
 #include "variant"
 #include "memory"
+#include "utils/pos.hpp"
 #include "ast/node.hpp"
 
 namespace cxz::ast {
 
-struct Identifier final : Node {
+struct Identifier final : Expr {
     std::string name;
 
     Identifier(std::string name, utils::Pos pos)
-        : Node(NodeKind::Identifier, pos),
+        : Expr(NodeKind::Identifier, pos),
           name(std::move(name)) {}
 };// struct Identifier
 
