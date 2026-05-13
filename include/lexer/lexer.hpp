@@ -1,12 +1,9 @@
-// lexer/lexer.hpp
 #pragma once
 #include "string"
 #include "vector"
 #include "string_view"
 #include "lexer/token.hpp"
-#include "utils/pos.hpp"
-
-namespace cxz::lexer {
+#include "utils.hpp"
 
 class Lexer {
 private:
@@ -14,24 +11,19 @@ private:
     size_t cursor_ = 0;
     size_t code_length_ = code_.size();
     char current_ch_ = '\0';
-    utils::Pos pos_;
+    Pos pos_;
  
     void reset(std::string_view filepath, std::string_view code);
     void advance();
-    char char_at(size_t jmp = 0);
+    char char_at(size_t offset = 0);
     void skip_whitespace();
     void skip_comments();
-    token::Token scan_number();
-    token::Token scan_string();
-    token::Token scan_char();
-    token::Token scan_id_or_keyword();
-    token::Token emit(token::TokenKind kind, size_t len = 1);
-
+    Token scan_number();
+    Token scan_string();
+    Token scan_char();
+    Token scan_id_or_keyword();
+    Token emit(TokenKind kind, size_t len = 1);
 public:
-
     Lexer() = default;
-
-    std::vector<token::Token> tokenize(std::string_view filepath, std::string_view code);
-};// class Lexer
-
-}// namespace cxz::lexer
+    std::vector<Token> tokenize(std::string_view filepath, std::string_view code);
+};

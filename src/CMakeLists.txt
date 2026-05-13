@@ -1,5 +1,6 @@
 add_subdirectory(lexer)
 add_subdirectory(parser)
+add_subdirectory(semantic)
 
 add_executable(
     ${PROJECT_NAME}
@@ -17,5 +18,6 @@ target_link_libraries(
     PUBLIC
     cinnabar_parser
     cinnabar_lexer
+    cinnabar_semantic
     fmt::fmt
 )

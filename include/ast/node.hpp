@@ -1,39 +1,29 @@
-// include/ast/node.hpp
 #pragma once
-#include "utils/pos.hpp"
+#include "utils.hpp"
 #include "vector"
-
-namespace cxz::ast {
 
 enum class NodeKind {
     Program,
-    Block,
-    LetDecl,
-    ReturnStmt,
+    BlockStmt,
+    VarStmt,
     ExprStmt,
     IfStmt,
     WhileStmt,
-    ForStmt,
+
+    AssignExpr,
     BinaryExpr,
     UnaryExpr,
-    CallExpr,
-    Identifier,
-    Literal,
-    FuncDecl,
-    // AsyncExpr,
-    // AwaitExpr,
-    // SpawnExpr,
-};// enum class NodeKind
+    IdentifierExpr,
+    LiteralExpr,
+    CallExpr
+};
 
 struct Node {
     NodeKind kind;
-    utils::Pos pos;
-
-    explicit Node(NodeKind k, utils::Pos p)
-        : kind(k), pos(p) {}
-
+    Pos pos;
+    explicit Node(NodeKind k, Pos p): kind(k), pos(p) {}
     virtual ~Node() = default;
-};// struct Node
+};
 
 struct Stmt : Node {
     using Node::Node;
@@ -45,22 +35,9 @@ struct Expr : Node {
     virtual ~Expr() = default;
 };
 
-struct Decl : Node {
-    using Node::Node;
-    virtual ~Decl() = default;
-};
-
 struct Program final : Node {
     std::vector<std::unique_ptr<Node>> body;
-    Program(utils::Pos pos)
-        : Node(NodeKind::Program, pos) {}
-};// struct Program
+    Program(Pos pos): Node(NodeKind::Program, pos) {}
+};
 
-struct Block final : Node {
-    std::vector<std::unique_ptr<Stmt>> statements;
 
-    Block(utils::Pos pos)
-        : Node(NodeKind::Block, pos) {}
-};// struct Block
-
-}// namespace cxz::ast

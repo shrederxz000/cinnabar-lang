@@ -1,87 +1,79 @@
-// src/lexer/utils.cpp
 #include "string_view"
 #include "unordered_map"
 #include "string"
 #include "stdexcept"
 #include "unordered_set"
 #include "lexer/lexer.hpp"
-#include "utils/pos.hpp"
+#include "utils.hpp"
 #include "lexer/token.hpp"
 
-namespace cxz::lexer {
+void Lexer::reset(std::string_view filepath, std::string_view code) {
+    code_ = code;
+    code_length_ = code_.size();
+    cursor_ = 0;
+    current_ch_ = code.empty() ? '\0' : code[0];
+    pos_ = Pos {filepath, 1, 1};
+}
 
-    void Lexer::reset(std::string_view filepath, std::string_view code) {
-        code_ = code;
-        code_length_ = code_.size();
-        cursor_ = 0;
-        current_ch_ = code.empty() ? '\0' : code[0];
-        pos_ = utils::Pos {filepath, 1, 1};
-    }// void Lexer::reset()
-
-    void Lexer::advance(){
-
-        if (current_ch_ != '\0' && cursor_ < code_length_) {
-
-            if (current_ch_ == '\n') {
-                pos_.line++;
-                pos_.column = 1;
-            }else {
-                pos_.column++;
-            }
-
-            cursor_++;
-            current_ch_ = (cursor_ < code_length_) ? code_[cursor_]: '\0';
-        }
-    }// void Lexer::advance()
-
-    char Lexer::char_at(size_t jmp) {
-
-        if(cursor_ + jmp < code_length_) {
-            return code_[cursor_ + jmp];
+void Lexer::advance(){
+    if (current_ch_ != '\0' && cursor_ < code_length_) {
+        if (current_ch_ == '\n') {
+            pos_.line++;
+            pos_.column = 1;
         } else {
-            return '\0';
-        }
-    }// char Lexer::char_at()
+            pos_.column++;
+        } 
+        cursor_++;
 
-    void Lexer::skip_whitespace() {
-
-        while(isspace(current_ch_)) {advance();}
-
-    }// void Lexer::skip_whitespace()
-
-    void Lexer::skip_comments() {
-        advance();
-
-        if (current_ch_ == '/') {
-            advance();
-
-            while (current_ch_ != '\n' && current_ch_ != '\0') {advance();}
-
-        } else if (current_ch_ == '*') {
-            advance();
-
-            while (current_ch_ != '\0') {
-
-                if (current_ch_ == '*' && char_at(1) == '/') {
-                    advance();
-                    advance();
-                    return;
-                }
-
-                advance();
-            }
-
-            throw std::runtime_error("error: lost closing part of comment block");
+        if(cursor_ < code_length_){
+            current_ch_ = code_[cursor_];
+        } else {
+            current_ch_ = '\0';
         }
     }
+}
 
-    token::Token Lexer::emit(token::TokenKind kind, size_t len) {
-        utils::Pos pos = pos_;
-        token::Token result = token::Token(kind, pos);
+char Lexer::char_at(size_t offset) {
+    if(cursor_ + offset < code_length_) {
+        return code_[cursor_ + offset];
+    } else {
+        return '\0';
+    }
+}
 
-        for (int i = 0; i < len; i++) {advance();}
+void Lexer::skip_whitespace() {
 
-        return result;
-    }// token::Token Lexer::emit()
+    while(isspace(current_ch_)){
+        advance();
+    }
+}
 
-}// namespace cxz::lexer
+void Lexer::skip_comments() {
+    advance();
+    if (current_ch_ == '/') {
+        advance();
+        while (current_ch_ != '\n' && current_ch_ != '\0') {
+            advance();
+        }
+    } else if (current_ch_ == '*') {
+        advance();
+        while (current_ch_ != '\0') {
+        if (current_ch_ == '*' && char_at(1) == '/') {
+            advance();
+            advance();
+            return;
+        }
+        advance();
+    }
+        throw std::runtime_error("error: lost closing part of comment block");
+    }
+}
+
+Token Lexer::emit(TokenKind kind, size_t len) {
+    Pos pos = pos_;
+    Token result = Token(kind, pos);
+    for (int i = 0; i < len; i++) {
+        advance();
+    }
+    return result;
+}

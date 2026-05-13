@@ -1,122 +1,120 @@
-// src/parser/parser.cpp
 #include "stdexcept"
 #include "tuple"
-#include "any"
 #include "memory"
 #include "lexer/token.hpp"
-#include "ast/program.hpp"
 #include "ast/expr.hpp"
 #include "parser/parser.hpp"
 
-namespace cxz::parser {
-
-std::unique_ptr<ast::Node> Parser::parse_expr_stmt() {
-    auto expr = parse_expression();
-    expect(token::TokenKind::SEMICOLON, "expected ';'");
-    return expr;
-}
-
-std::tuple<int, int> Parser::precedence(token::TokenKind kind) {
-
+std::tuple<int, int> Parser::precedence(TokenKind kind) {
     switch (kind) {
-        case token::TokenKind::POW: {return {30, 0};} // [0]: сила, [1]: 0 - левоассоциативный, 1 - правоассоциативный
-        case token::TokenKind::STAR: {return {20, 1};}
-        case token::TokenKind::SLASH: {return {20, 1};}
-        case token::TokenKind::PLUS: {return {10, 1};}
-        case token::TokenKind::MINUS: {return {10, 1};}
-        case token::TokenKind::EQ: {return {5, 1};}
-        case token::TokenKind::NEQ: {return {5, 1};}
+        /* [0]: сила, [1]: 0 - правоассоциативный, 1 - левоассоциативный */
+        case TokenKind::OR:    return {2,  1};
+        case TokenKind::AND:   return {3,  1};
+        case TokenKind::EQ:
+        case TokenKind::NEQ:
+        case TokenKind::LT:
+        case TokenKind::GT:
+        case TokenKind::LE:
+        case TokenKind::GE:    return {5,  1};
 
-        default: {return {0, 1};}
+        case TokenKind::PLUS:
+        case TokenKind::MINUS: return {10, 1};
+
+        case TokenKind::STAR:
+        case TokenKind::SLASH: return {20, 1};
+
+        case TokenKind::POW:   return {30, 0}; // правоассоциативный
+        default:               return {0,  1};
     }
 }
+std::unique_ptr<Expr> Parser::parse_call(std::unique_ptr<Expr> callee) {
+    Pos pos = peek().pos();
+    advance(); // съедаем (
 
-std::unique_ptr<ast::Node> Parser::parse_prefix() {
-    const auto& tok = advance();// а тут финальная точка краха, так как следующий токен должен быть Eof
+    std::vector<std::unique_ptr<Expr>> args;
+    while (!check(TokenKind::RPAR) && !check(TokenKind::Eof)) {
+        args.push_back(parse_expression());
+        if (!match(TokenKind::COMMA)) break;
+    }
+    expect(TokenKind::RPAR, "expected ')'");
 
+    return std::make_unique<CallExpr>(std::move(callee), std::move(args), pos);
+}
+
+std::unique_ptr<Expr> Parser::parse_prefix() {
+    const Token& tok = advance();
     switch (tok.kind()) {
-        case token::TokenKind::INT_LITERAL: {return std::make_unique<ast::Literal>(tok.value(), tok.pos());}
-        case token::TokenKind::FLOAT_LITERAL: {return std::make_unique<ast::Literal>(tok.value(), tok.pos());}
-        case token::TokenKind::STRING_LITERAL: {return std::make_unique<ast::Literal>(tok.value(), tok.pos());}
-        case token::TokenKind::CHAR_LITERAL: {
-            return std::make_unique<ast::Literal>(tok.value(), tok.pos());
+        case TokenKind::INT_LITERAL:
+            return std::make_unique<LiteralExpr>(tok.value(), tok.pos());
+        case TokenKind::FLOAT_LITERAL:
+            return std::make_unique<LiteralExpr>(tok.value(), tok.pos());
+        case TokenKind::STRING_LITERAL:
+            return std::make_unique<LiteralExpr>(tok.value(), tok.pos());
+        case TokenKind::CHAR_LITERAL:
+            return std::make_unique<LiteralExpr>(tok.value(), tok.pos());
+        case TokenKind::BOOL_LITERAL:
+            return std::make_unique<LiteralExpr>(tok.value(), tok.pos());
+        case TokenKind::Null:
+            return std::make_unique<LiteralExpr>(std::monostate{}, tok.pos());
+
+        case TokenKind::MINUS: {
+            std::unique_ptr<Expr> operand = parse_prefix();
+            return std::make_unique<UnaryExpr>(PrefixOp::MINUS, std::move(operand), tok.pos());
         }
 
-        case token::TokenKind::ID: {
-            return std::make_unique<ast::Identifier>(
-                tok.as<std::string>(),
-                tok.pos()
-            );
-        }
+        case TokenKind::ID:
+            return std::make_unique<IdentifierExpr>(tok.as<std::string>(), tok.pos());
 
-        case token::TokenKind::LPAR: {
-            auto expr = parse_expression();
-            expect(token::TokenKind::RPAR, "expected ')'");
+        case TokenKind::LPAR: {
+            std::unique_ptr<Expr> expr = parse_expression();
+            expect(TokenKind::RPAR, "expected ')'");
             return expr;
         }
 
-        default: {
+        default:
             throw std::runtime_error("unexpected token in expression");
-        }
     }
 }
-    bool Parser::is_binary_op(token::TokenKind kind) const {
-        switch (kind) {
-            case token::TokenKind::PLUS:
-            case token::TokenKind::MINUS:
-            case token::TokenKind::STAR:
-            case token::TokenKind::SLASH:
-            case token::TokenKind::POW:
-            case token::TokenKind::EQ:
-            case token::TokenKind::NEQ:
-            case token::TokenKind::LT:
-            case token::TokenKind::LE:
-            case token::TokenKind::GT:
-            case token::TokenKind::GE:
-                return true;
-            default:
-                return false;
-        }
+
+std::unique_ptr<Expr> Parser::parse_expression(int min_prec) {
+    std::unique_ptr<Expr> left = parse_prefix();
+
+    while (check(TokenKind::LPAR)) {
+        left = parse_call(std::move(left));
     }
 
- 
-std::unique_ptr<ast::Node> Parser::parse_expression(int min_prec) {
-    auto left = parse_prefix();
-
     while (true) {
-        auto kind = peek().kind(); // это проблемная часть. тут оказывается не литерал, а ";"
-        auto [prec, prec_side] = precedence(kind);
+        TokenKind kind = peek().kind();
+        auto [prec, assoc] = precedence(kind);
 
-        if (prec == 0 || prec < min_prec) {break;}
+        if (prec == 0 || prec < min_prec) break;
 
-        auto op_tok = advance();//
-        auto right = parse_expression(prec + prec_side);//
-        ast::BinaryOp op;
+        Token op_tok = advance();
 
-        switch (op_tok.kind()) { // проверка токена и запись, а как оператор в ast
-            case token::TokenKind::PLUS: {op = ast::BinaryOp::ADD; break;}
-            case token::TokenKind::MINUS: {op = ast::BinaryOp::SUB; break;}
-            case token::TokenKind::STAR: {op = ast::BinaryOp::MUL; break;}
-            case token::TokenKind::SLASH: {op = ast::BinaryOp::DIV; break;}
-            case token::TokenKind::POW: {op = ast::BinaryOp::POW; break;}
+        // правоассоциативный: следующий уровень = prec
+        // левоассоциативный:  следующий уровень = prec + 1
+        int next_prec = (assoc == 0) ? prec : prec + 1;
+        std::unique_ptr<Expr> right = parse_expression(next_prec);
 
-            default: {
+        InfixOp op;
+        switch (op_tok.kind()) {
+            case TokenKind::PLUS:  op = InfixOp::ADD; break;
+            case TokenKind::MINUS: op = InfixOp::SUB; break;
+            case TokenKind::STAR:  op = InfixOp::MUL; break;
+            case TokenKind::SLASH: op = InfixOp::DIV; break;
+            case TokenKind::POW:   op = InfixOp::POW; break;
+            case TokenKind::EQ:    op = InfixOp::EQ;  break;
+            case TokenKind::NEQ:   op = InfixOp::NEQ; break;
+            case TokenKind::LT:    op = InfixOp::LT;  break;
+            case TokenKind::GT:    op = InfixOp::GT;  break;
+            case TokenKind::LE:    op = InfixOp::LE;  break;
+            case TokenKind::GE:    op = InfixOp::GE;  break;
+            default:
                 throw std::runtime_error("unknown binary operator");
-            }
         }
 
-        left = std::make_unique<ast::BinaryExpr>(
-            op,
-            std::move(left),
-            std::move(right),
-            op_tok.pos()
-        );
+        left = std::make_unique<BinaryExpr>(op, std::move(left), std::move(right), op_tok.pos());
     }
 
     return left;
 }
-
-}// namespace cxz::parser
-/*
-TODO: надо сделать поддержку унарных операторов и еще надо сделать возвраты сравнения в виде bool
-*/

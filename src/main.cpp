@@ -1,122 +1,165 @@
-// src/main.cpp
 #include "fmt/core.h"
-#include "cinnabar.hpp"
-#include "utils/io.hpp"
+#include "utils.hpp"
 #include "lexer/token.hpp"
 #include "lexer/lexer.hpp"
 #include "parser/parser.hpp"
 #include "ast/node.hpp"
-#include "ast/program.hpp"
+#include "semantic/semantic.hpp"
 
-namespace cxz {
-void print_tokens(const std::vector<cxz::token::Token>& tokens) {
+void print_tokens(const std::vector<Token>& tokens) {
     for (const auto& tok : tokens) {
-        fmt::print("{} at {}:{}\n", cxz::token::to_string(tok.kind()), tok.pos().line, tok.pos().column);
+        fmt::print("{} at {}:{}\n",
+                   token_to_string(tok),
+                   tok.pos().line,
+                   tok.pos().column
+        );
     }
 }
 
-void print_ast(const cxz::ast::Node* node, int indent) {
+void print_ast(const Node* node, int indent = 0) {
     std::string pad(indent, ' ');
-    using namespace cxz::ast;
-
     switch (node->kind) {
         case NodeKind::Program: {
             fmt::println("{}Program", pad);
             const auto* prog = static_cast<const Program*>(node);
-            for (const auto& stmt : prog->body) print_ast(stmt.get(), indent + 2);
+            for (const auto& child : prog->body)
+                print_ast(child.get(), indent + 2);
             break;
         }
-        case NodeKind::Block: {
+        case NodeKind::BlockStmt: {
             fmt::println("{}Block", pad);
             const auto* block = static_cast<const Block*>(node);
-            for (const auto& stmt : block->statements) print_ast(stmt.get(), indent + 2);
+            for (const auto& stmt : block->statements)
+                print_ast(stmt.get(), indent + 2);
             break;
         }
-        case NodeKind::LetStmt: {
-            const auto* let_stmt = static_cast<const LetStmt*>(node);
-            fmt::println("{}LetStmt {}{} = ...", pad, let_stmt->has_const ? "const " : "", let_stmt->name);
+        case NodeKind::VarStmt: {
+            const auto* var = static_cast<const VarStmt*>(node);
+            fmt::println("{}VarStmt {}", pad, var->name);
+            print_ast(var->value.get(), indent + 2);
             break;
         }
-        case NodeKind::ReturnStmt: {
-            fmt::println("{}ReturnStmt", pad);
+        case NodeKind::IfStmt: {
+            fmt::println("{}IfStmt", pad);
+            const auto* if_s = static_cast<const IfStmt*>(node);
+            fmt::println("{}  condition:", pad);
+            print_ast(if_s->condition.get(), indent + 4);
+            fmt::println("{}  then:", pad);
+            print_ast(if_s->then_branch.get(), indent + 4);
+            if (if_s->else_branch) {
+                fmt::println("{}  else:", pad);
+                print_ast(if_s->else_branch.get(), indent + 4);
+            }
+            break;
+        }
+        case NodeKind::WhileStmt: {
+            fmt::println("{}WhileStmt", pad);
+            const auto* w = static_cast<const WhileStmt*>(node);
+            fmt::println("{}  condition:", pad);
+            print_ast(w->condition.get(), indent + 4);
+            fmt::println("{}  body:", pad);
+            print_ast(w->loop_body.get(), indent + 4);
+            break;
+        }
+        case NodeKind::ExprStmt: {
+            fmt::println("{}ExprStmt", pad);
+            const auto* es = static_cast<const ExprStmt*>(node);
+            print_ast(es->expr.get(), indent + 2);
             break;
         }
         case NodeKind::BinaryExpr: {
+            const auto* bin = static_cast<const BinaryExpr*>(node);
             fmt::println("{}BinaryExpr", pad);
+            print_ast(bin->lhs.get(), indent + 2);
+            print_ast(bin->rhs.get(), indent + 2);
             break;
         }
-        case NodeKind::Identifier: {
-            const auto* id = static_cast<const Identifier*>(node);
+        case NodeKind::UnaryExpr: {
+            fmt::println("{}UnaryExpr", pad);
+            const auto* un = static_cast<const UnaryExpr*>(node);
+            print_ast(un->operand.get(), indent + 2);
+            break;
+        }
+        case NodeKind::IdentifierExpr: {
+            const auto* id = static_cast<const IdentifierExpr*>(node);
             fmt::println("{}Identifier {}", pad, id->name);
             break;
         }
-        case NodeKind::Literal: {
-            fmt::println("{}Literal", pad);
+        case NodeKind::LiteralExpr: {
+            const auto* lit = static_cast<const LiteralExpr*>(node);
+            std::visit([&](const auto& v) {
+                using T = std::decay_t<decltype(v)>;
+                if constexpr (std::is_same_v<T, std::monostate>)
+                    fmt::println("{}Literal <empty>", pad);
+                else if constexpr (std::is_same_v<T, std::string>)
+                    fmt::println("{}Literal \"{}\"", pad, v);
+                else if constexpr (std::is_same_v<T, bool>)
+                    fmt::println("{}Literal {}", pad, v ? "true" : "false");
+                else if constexpr (std::is_same_v<T, char>)
+                    fmt::println("{}Literal '{}'", pad, v);
+                else
+                    fmt::println("{}Literal {}", pad, v);
+            }, lit->value);
+            break;
+        }
+        case NodeKind::CallExpr: {
+            const auto* call = static_cast<const CallExpr*>(node);
+            fmt::println("{}CallExpr", pad);
+            print_ast(call->callee.get(), indent + 2);
+            for (const auto& arg : call->args)
+                print_ast(arg.get(), indent + 2);
+            break;
+        }
+        case NodeKind::AssignExpr: {
+            const auto* assign = static_cast<const AssignExpr*>(node);
+            fmt::println("{}AssignExpr", pad);
+            print_ast(assign->target.get(), indent + 2);
+            print_ast(assign->value.get(), indent + 2);
             break;
         }
         default:
-            fmt::println("{}<unknown node>", pad);
+            fmt::println("{}<unknown>", pad);
     }
 }
 
-}// namespace cxz
-
 int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        fmt::println("usage: cinnabar <file>");
+        return 1;
+    }
+
     for (int i = 1; i < argc; ++i) {
         try {
             std::string filename = argv[i];
-            std::string content = cxz::utils::read_file(filename);
+            std::string content = read_file(filename);
 
-            fmt::println("File: {}", filename);
-            fmt::println("Content:\n{}", content);
+            fmt::println("=== File: {} ===", filename);
+            fmt::println("{}\n", content);
 
-            // 1️⃣ Лексинг
-            cxz::lexer::Lexer lexer;
-            auto tokens = lexer.tokenize("test",
-                                         "+ "
-                                         "+= "
-                                         "- "
-                                         "-= "
-                                         "/ "
-                                         "/= "
-                                         "* "
-                                         "*= "
-                                         "** "
-                                         "**= "
-                                         "= "
-                                         "@ "
-                                         "! "
-                                         "# "
-                                         "$ "
-                                         "% "
-                                         "%= "
-                                         "^ "
-                                         "& "
-                                         "? "
-                                         "~ "
-                                         "| "
-                                         "|| "
-                                         "&& "
-                                         "<= "
-                                         ">= "
-                                         "== "
-                                         "!= "
-                                         "<< "
-                                         ">> "
-                                         "=> "
-                                         "-> "
-            );
-            fmt::println("Tokens:");
-            cxz::print_tokens(tokens);
+            Lexer lexer;
+            std::vector<Token> tokens = lexer.tokenize(filename, content);
 
-            // 2️⃣ Парсинг
-            cxz::parser::Parser parser(tokens);
-            auto ast = parser.parse_program();
-            fmt::println("AST:");
-            cxz::print_ast(ast.get());
+            fmt::println("=== Tokens ===");
+            print_tokens(tokens);
+
+            fmt::println("\n=== AST ===");
+            Parser parser(tokens);
+            std::unique_ptr<Program> ast = parser.parse_program();
+            print_ast(ast.get());
+
+            fmt::println("\n=== Semantic ===");
+            SemanticVisitor semantic;
+            try {
+                semantic.check(ast.get());
+                fmt::println("OK — no errors");
+            } catch (const std::exception& e) {
+                fmt::println("semantic error: {}", e.what());
+                return 1;
+            }
 
         } catch (const std::exception& e) {
-            fmt::println("Error processing file '{}': {}", argv[i], e.what());
+            fmt::println("error in '{}': {}", argv[i], e.what());
+            return 1;
         }
     }
     return 0;
