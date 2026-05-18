@@ -9,9 +9,9 @@ Parser::Parser(const std::vector<Token>& tokens)
         : tokens_(tokens) {}
 
 std::unique_ptr<Program> Parser::parse_program() {
-    std::unique_ptr<Program> prog = std::make_unique<Program>(peek().pos());
+    std::unique_ptr<Program> prog = std::make_unique<Program>(peek().pos());// объявляем корневую ноду
 
-    while (peek().kind() != TokenKind::Eof) {
+    while (peek().kind() != TokenKind::Eof) {// главный цикл парсинга
         prog->body.push_back(parse_statement());
     }
 

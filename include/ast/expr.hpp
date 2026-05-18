@@ -33,7 +33,7 @@ struct BinaryExpr final : Expr {
     std::unique_ptr<Expr> lhs;
     std::unique_ptr<Expr> rhs;
 
-    BinaryExpr(InfixOp op,std::unique_ptr<Expr> lhs,std::unique_ptr<Expr> rhs, Pos pos)
+    BinaryExpr(InfixOp op, std::unique_ptr<Expr> lhs, std::unique_ptr<Expr> rhs, Pos pos)
         : Expr(NodeKind::BinaryExpr, pos),op(op), lhs(std::move(lhs)), rhs(std::move(rhs)) {}
 };
 

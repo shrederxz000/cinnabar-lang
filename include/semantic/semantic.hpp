@@ -10,10 +10,22 @@
 #include "ast/expr.hpp"
 #include "ast/stmt.hpp"
 
+enum class Type {
+    INT,
+    FLOAT,
+    STR,
+    CHAR,
+    BOOL,
+    NULL_TYPE,
+    UNKNOWN
+};
+
 struct TypeInfo {
-    TokenKind type;    // INT, FLOAT, STR, CHAR, BOOL, Null
-//    bool is_const;
+    Type type;
     bool is_null;
+
+    TypeInfo() : type(Type::UNKNOWN), is_null(false) {}
+    TypeInfo(Type t, bool null = false) : type(t), is_null(null) {}
 };
 
 class SemanticVisitor {
@@ -44,6 +56,13 @@ private:
     TypeInfo check_call(CallExpr* node);
     TypeInfo check_identifier(IdentifierExpr* node);
     TypeInfo check_literal(LiteralExpr* node);
+
+    // type checking helpers
+    Type token_kind_to_type(TokenKind kind);
+    bool is_numeric(Type t);
+    bool is_comparable(Type t);
+    Type infer_binary_result_type(InfixOp op, Type lhs, Type rhs, const Pos& pos);
+    void check_type_compatibility(Type expected, Type actual, const Pos& pos, const std::string& context);
 
     void error(const Pos& pos, const std::string& msg);
 

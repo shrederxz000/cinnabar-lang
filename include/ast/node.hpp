@@ -1,6 +1,7 @@
 #pragma once
 #include "utils.hpp"
 #include "vector"
+#include "memory"
 
 enum class NodeKind {
     Program,

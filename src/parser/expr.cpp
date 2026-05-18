@@ -62,6 +62,11 @@ std::unique_ptr<Expr> Parser::parse_prefix() {
             return std::make_unique<UnaryExpr>(PrefixOp::MINUS, std::move(operand), tok.pos());
         }
 
+        case TokenKind::BANG: {
+            std::unique_ptr<Expr> operand = parse_prefix();
+            return std::make_unique<UnaryExpr>(PrefixOp::NOT, std::move(operand), tok.pos());
+        }
+
         case TokenKind::ID:
             return std::make_unique<IdentifierExpr>(tok.as<std::string>(), tok.pos());
 
@@ -109,6 +114,8 @@ std::unique_ptr<Expr> Parser::parse_expression(int min_prec) {
             case TokenKind::GT:    op = InfixOp::GT;  break;
             case TokenKind::LE:    op = InfixOp::LE;  break;
             case TokenKind::GE:    op = InfixOp::GE;  break;
+            case TokenKind::OR:    op = InfixOp::OR;  break;
+            case TokenKind::AND:   op = InfixOp::AND; break;
             default:
                 throw std::runtime_error("unknown binary operator");
         }

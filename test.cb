@@ -1,0 +1,16 @@
+x := 5;
+y:int = 10;
+z := x + y;
+result := z * 2;
+
+a:float = 3.14;
+b := a + 2.0;
+
+flag:bool = true;
+cond := flag && (x > 3);
+
+name:str = "hello";
+greeting := name + " world";
+
+print(result);
+print(greeting);

@@ -5,6 +5,8 @@
 #include "parser/parser.hpp"
 #include "ast/node.hpp"
 #include "semantic/semantic.hpp"
+#include "codegen/serializer.hpp"
+#include <fstream>
 
 void print_tokens(const std::vector<Token>& tokens) {
     for (const auto& tok : tokens) {
@@ -124,43 +126,104 @@ void print_ast(const Node* node, int indent = 0) {
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        fmt::println("usage: cinnabar <file>");
+        fmt::println("usage: cinnabar <file> [--json] [--output <file>] [--codegen]");
+        fmt::println("  --json       Output AST as JSON");
+        fmt::println("  --output     Save JSON to file");
+        fmt::println("  --codegen    Generate and execute Python code");
         return 1;
     }
 
-    for (int i = 1; i < argc; ++i) {
-        try {
-            std::string filename = argv[i];
-            std::string content = read_file(filename);
+    bool output_json = false;
+    bool run_codegen = false;
+    std::string output_file;
+    std::string input_file = argv[1];
 
-            fmt::println("=== File: {} ===", filename);
-            fmt::println("{}\n", content);
-
-            Lexer lexer;
-            std::vector<Token> tokens = lexer.tokenize(filename, content);
-
-            fmt::println("=== Tokens ===");
-            print_tokens(tokens);
-
-            fmt::println("\n=== AST ===");
-            Parser parser(tokens);
-            std::unique_ptr<Program> ast = parser.parse_program();
-            print_ast(ast.get());
-
-            fmt::println("\n=== Semantic ===");
-            SemanticVisitor semantic;
-            try {
-                semantic.check(ast.get());
-                fmt::println("OK — no errors");
-            } catch (const std::exception& e) {
-                fmt::println("semantic error: {}", e.what());
-                return 1;
-            }
-
-        } catch (const std::exception& e) {
-            fmt::println("error in '{}': {}", argv[i], e.what());
-            return 1;
+    // Parse command line arguments
+    for (int i = 2; i < argc; ++i) {
+        std::string arg = argv[i];
+        if (arg == "--json") {
+            output_json = true;
+        } else if (arg == "--codegen") {
+            run_codegen = true;
+            output_json = true; // codegen requires JSON
+        } else if (arg == "--output" && i + 1 < argc) {
+            output_file = argv[++i];
+            output_json = true;
         }
     }
+
+    try {
+        std::string content = read_file(input_file);
+
+        if (!output_json) {
+            fmt::println("=== File: {} ===", input_file);
+            fmt::println("{}\n", content);
+        }
+
+        Lexer lexer;
+        std::vector<Token> tokens = lexer.tokenize(input_file, content);
+
+        if (!output_json) {
+            fmt::println("=== Tokens ===");
+            print_tokens(tokens);
+        }
+
+        Parser parser(tokens);
+        std::unique_ptr<Program> ast = parser.parse_program();
+
+        if (!output_json) {
+            fmt::println("\n=== AST ===");
+            print_ast(ast.get());
+            fmt::println("\n=== Semantic ===");
+        }
+
+        SemanticVisitor semantic;
+        try {
+            semantic.check(ast.get());
+            if (!output_json) {
+                fmt::println("OK — no errors");
+            }
+        } catch (const std::exception& e) {
+            fmt::println("semantic error: {}", e.what());
+            return 1;
+        }
+
+        // Generate JSON if requested
+        if (output_json) {
+            std::string json = ASTSerializer::to_json(ast.get());
+
+            if (!output_file.empty()) {
+                std::ofstream out(output_file);
+                out << json;
+                out.close();
+                if (!run_codegen) {
+                    fmt::println("JSON AST saved to: {}", output_file);
+                }
+            } else if (!run_codegen) {
+                fmt::println("{}", json);
+            }
+
+            // Run Python codegen if requested
+            if (run_codegen) {
+                std::string temp_json = "/tmp/cinnabar_ast.json";
+                std::ofstream temp_out(temp_json);
+                temp_out << json;
+                temp_out.close();
+
+                std::string codegen_cmd = "python3 codegen.py " + temp_json + " --execute";
+                int result = system(codegen_cmd.c_str());
+
+                // Clean up temp file
+                std::remove(temp_json.c_str());
+
+                return result;
+            }
+        }
+
+    } catch (const std::exception& e) {
+        fmt::println("error in '{}': {}", input_file, e.what());
+        return 1;
+    }
+
     return 0;
 }

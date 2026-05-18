@@ -2,6 +2,11 @@ add_library(
     cinnabar_semantic
     STATIC
     semantic.cpp
+    expr.cpp
+    scope.cpp
+    stmt.cpp
+    std.cpp
+    typechecker.cpp
 )
 
 target_include_directories(
