@@ -1,17 +1,17 @@
-#include "stdexcept"
-#include "vector"
-#include "memory"
+#include <memory>
+#include <stdexcept>
+#include <vector>
 #include "lexer/token.hpp"
 #include "ast/node.hpp"
 #include "parser/parser.hpp"
 
-Parser::Parser(const std::vector<Token>& tokens)
-        : tokens_(tokens) {}
+Parser::Parser(const std::vector<Token>& tokens) : tokens_(tokens) {}
 
 std::unique_ptr<Program> Parser::parse_program() {
-    std::unique_ptr<Program> prog = std::make_unique<Program>(peek().pos());// объявляем корневую ноду
+    std::unique_ptr<Program> prog =
+        std::make_unique<Program>(peek().pos()); // объявляем корневую ноду
 
-    while (peek().kind() != TokenKind::Eof) {// главный цикл парсинга
+    while (peek().kind() != TokenKind::Eof) { // главный цикл парсинга
         prog->body.push_back(parse_statement());
     }
 
@@ -29,6 +29,3 @@ std::unique_ptr<Block> Parser::parse_block() {
     expect(TokenKind::RBRACE, "expected '}'");
     return block;
 }
-
-
-

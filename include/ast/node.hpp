@@ -1,7 +1,7 @@
 #pragma once
+#include <memory>
+#include <vector>
 #include "utils.hpp"
-#include "vector"
-#include "memory"
 
 enum class NodeKind {
     Program,
@@ -22,7 +22,7 @@ enum class NodeKind {
 struct Node {
     NodeKind kind;
     Pos pos;
-    explicit Node(NodeKind k, Pos p): kind(k), pos(p) {}
+    explicit Node(NodeKind k, Pos p) : kind(k), pos(p) {}
     virtual ~Node() = default;
 };
 
@@ -38,7 +38,5 @@ struct Expr : Node {
 
 struct Program final : Node {
     std::vector<std::unique_ptr<Node>> body;
-    Program(Pos pos): Node(NodeKind::Program, pos) {}
+    Program(Pos pos) : Node(NodeKind::Program, pos) {}
 };
-
-

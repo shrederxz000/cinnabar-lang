@@ -2,13 +2,20 @@
 
 Type SemanticVisitor::token_kind_to_type(TokenKind kind) {
     switch (kind) {
-        case TokenKind::INT:   return Type::INT;
-        case TokenKind::FLOAT: return Type::FLOAT;
-        case TokenKind::STR:   return Type::STR;
-        case TokenKind::CHAR:  return Type::CHAR;
-        case TokenKind::BOOL:  return Type::BOOL;
-        case TokenKind::Null:  return Type::NULL_TYPE;
-        default:               return Type::UNKNOWN;
+    case TokenKind::INT:
+        return Type::INT;
+    case TokenKind::FLOAT:
+        return Type::FLOAT;
+    case TokenKind::STR:
+        return Type::STR;
+    case TokenKind::CHAR:
+        return Type::CHAR;
+    case TokenKind::BOOL:
+        return Type::BOOL;
+    case TokenKind::Null:
+        return Type::NULL_TYPE;
+    default:
+        return Type::UNKNOWN;
     }
 }
 
@@ -22,8 +29,8 @@ bool SemanticVisitor::is_comparable(Type t) {
 
 Type SemanticVisitor::infer_binary_result_type(InfixOp op, Type lhs, Type rhs, const Pos& pos) {
     // Арифметические операции
-    if (op == InfixOp::ADD || op == InfixOp::SUB || op == InfixOp::MUL ||
-        op == InfixOp::DIV || op == InfixOp::POW) {
+    if (op == InfixOp::ADD || op == InfixOp::SUB || op == InfixOp::MUL || op == InfixOp::DIV ||
+        op == InfixOp::POW) {
 
         // Специальный случай: string + string = string
         if (op == InfixOp::ADD && lhs == Type::STR && rhs == Type::STR) {
@@ -72,7 +79,8 @@ Type SemanticVisitor::infer_binary_result_type(InfixOp op, Type lhs, Type rhs, c
     return Type::UNKNOWN;
 }
 
-void SemanticVisitor::check_type_compatibility(Type expected, Type actual, const Pos& pos, const std::string& context) {
+void SemanticVisitor::check_type_compatibility(Type expected, Type actual, const Pos& pos,
+                                               const std::string& context) {
     if (expected == Type::UNKNOWN) {
         return; // автовывод типа
     }
@@ -83,6 +91,6 @@ void SemanticVisitor::check_type_compatibility(Type expected, Type actual, const
 
     if (expected != actual) {
         error(pos, context + ": expected type '" + std::to_string(static_cast<int>(expected)) +
-              "' but got '" + std::to_string(static_cast<int>(actual)) + "'");
+                       "' but got '" + std::to_string(static_cast<int>(actual)) + "'");
     }
 }

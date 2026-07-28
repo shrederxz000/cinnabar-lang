@@ -1,23 +1,27 @@
-#include "string"
+#include <string>
 #include "semantic/semantic.hpp"
 
 void SemanticVisitor::check_stmt(Stmt* node) {
     switch (node->kind) {
-        case NodeKind::VarStmt:
-            check_var_stmt(static_cast<VarStmt*>(node)); break;
-        case NodeKind::ExprStmt: {
-            ExprStmt* es = static_cast<ExprStmt*>(node);
-            check_expr(es->expr.get());
-            break;
-        }
-        case NodeKind::IfStmt:
-            check_if(static_cast<IfStmt*>(node)); break;
-        case NodeKind::WhileStmt:
-            check_while(static_cast<WhileStmt*>(node)); break;
-        case NodeKind::BlockStmt:
-            check_block(static_cast<Block*>(node)); break;
-        default:
-            break;
+    case NodeKind::VarStmt:
+        check_var_stmt(static_cast<VarStmt*>(node));
+        break;
+    case NodeKind::ExprStmt: {
+        ExprStmt* es = static_cast<ExprStmt*>(node);
+        check_expr(es->expr.get());
+        break;
+    }
+    case NodeKind::IfStmt:
+        check_if(static_cast<IfStmt*>(node));
+        break;
+    case NodeKind::WhileStmt:
+        check_while(static_cast<WhileStmt*>(node));
+        break;
+    case NodeKind::BlockStmt:
+        check_block(static_cast<Block*>(node));
+        break;
+    default:
+        break;
     }
 }
 

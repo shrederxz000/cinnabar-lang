@@ -1,5 +1,5 @@
-#include "stdexcept"
-#include "string"
+#include <stdexcept>
+#include <string>
 #include "semantic/semantic.hpp"
 
 void SemanticVisitor::push_scope() {
@@ -21,7 +21,7 @@ TypeInfo* SemanticVisitor::lookup(const std::string& name) {
 }
 
 void SemanticVisitor::declare(const std::string& name, TypeInfo info) {
-    std::unordered_map<std::basic_string<char>, TypeInfo> &current = scopes_.back();
+    std::unordered_map<std::basic_string<char>, TypeInfo>& current = scopes_.back();
     if (current.count(name)) {
         throw std::runtime_error("error: '" + name + "' is already declared in this scope");
     }
@@ -29,7 +29,6 @@ void SemanticVisitor::declare(const std::string& name, TypeInfo info) {
 }
 
 void SemanticVisitor::error(const Pos& pos, const std::string& msg) {
-    throw std::runtime_error(
-            "error at " + std::to_string(pos.line) + ":" + std::to_string(pos.column) + " — " + msg
-    );
+    throw std::runtime_error("error at " + std::to_string(pos.line) + ":" +
+                             std::to_string(pos.column) + " — " + msg);
 }

@@ -1,5 +1,5 @@
-#include "stdexcept"
-#include "memory"
+#include <stdexcept>
+#include <memory>
 #include "lexer/token.hpp"
 #include "ast/stmt.hpp"
 #include "ast/expr.hpp"
@@ -7,17 +7,18 @@
 
 std::unique_ptr<Stmt> Parser::parse_statement() {
     // объявление переменной: a:int=5 или a:=5
-    if (
-        check(TokenKind::ID) &&
-        (peek(1).kind() == TokenKind::COLON || peek(1).kind() == TokenKind::COLON_ASSIGN)
-        ) {
+    if (check(TokenKind::ID) &&
+        (peek(1).kind() == TokenKind::COLON || peek(1).kind() == TokenKind::COLON_ASSIGN)) {
         return parse_var_stmt();
     }
 
     switch (peek().kind()) {
-        case TokenKind::IF:    return parse_if_stmt();
-        case TokenKind::WHILE: return parse_while_stmt();
-        default:               return parse_expr_stmt();
+    case TokenKind::IF:
+        return parse_if_stmt();
+    case TokenKind::WHILE:
+        return parse_while_stmt();
+    default:
+        return parse_expr_stmt();
     }
 }
 
@@ -56,11 +57,10 @@ std::unique_ptr<Stmt> Parser::parse_expr_stmt() {
         std::unique_ptr<Expr> value = parse_expression();
         expect(TokenKind::SEMICOLON, "expected ';'");
 
-        std::unique_ptr<IdentifierExpr> target = std::make_unique<IdentifierExpr>(name_tok.as<std::string>(), name_tok.pos());
+        std::unique_ptr<IdentifierExpr> target =
+            std::make_unique<IdentifierExpr>(name_tok.as<std::string>(), name_tok.pos());
         return std::make_unique<ExprStmt>(
-                std::make_unique<AssignExpr>(std::move(target), std::move(value), name_tok.pos()),
-                pos
-        );
+            std::make_unique<AssignExpr>(std::move(target), std::move(value), name_tok.pos()), pos);
     }
 
     std::unique_ptr<Expr> expr = parse_expression();
@@ -83,7 +83,8 @@ std::unique_ptr<Stmt> Parser::parse_if_stmt() {
         else_branch = parse_block();
     }
 
-    return std::make_unique<IfStmt>(std::move(cond), std::move(then_branch), std::move(else_branch), pos);
+    return std::make_unique<IfStmt>(std::move(cond), std::move(then_branch), std::move(else_branch),
+                                    pos);
 }
 
 // while (cond) { ... }

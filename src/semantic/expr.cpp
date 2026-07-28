@@ -1,23 +1,23 @@
-#include "string"
-#include "unordered_set"
+#include <string>
+#include <unordered_set>
 #include "semantic/semantic.hpp"
 
 TypeInfo SemanticVisitor::check_expr(Expr* node) {
     switch (node->kind) {
-        case NodeKind::LiteralExpr:
-            return check_literal(static_cast<LiteralExpr*>(node));
-        case NodeKind::IdentifierExpr:
-            return check_identifier(static_cast<IdentifierExpr*>(node));
-        case NodeKind::BinaryExpr:
-            return check_binary(static_cast<BinaryExpr*>(node));
-        case NodeKind::UnaryExpr:
-            return check_unary(static_cast<UnaryExpr*>(node));
-        case NodeKind::CallExpr:
-            return check_call(static_cast<CallExpr*>(node));
-        case NodeKind::AssignExpr:
-            return check_assign(static_cast<AssignExpr*>(node));
-        default:
-            error(node->pos, "unknown expression");
+    case NodeKind::LiteralExpr:
+        return check_literal(static_cast<LiteralExpr*>(node));
+    case NodeKind::IdentifierExpr:
+        return check_identifier(static_cast<IdentifierExpr*>(node));
+    case NodeKind::BinaryExpr:
+        return check_binary(static_cast<BinaryExpr*>(node));
+    case NodeKind::UnaryExpr:
+        return check_unary(static_cast<UnaryExpr*>(node));
+    case NodeKind::CallExpr:
+        return check_call(static_cast<CallExpr*>(node));
+    case NodeKind::AssignExpr:
+        return check_assign(static_cast<AssignExpr*>(node));
+    default:
+        error(node->pos, "unknown expression");
     }
     return {Type::NULL_TYPE, true};
 }
@@ -26,16 +26,21 @@ TypeInfo SemanticVisitor::check_literal(LiteralExpr* node) {
     return std::visit(
         [](const auto& v) -> TypeInfo {
             using T = std::decay_t<decltype(v)>;
-            if constexpr (std::is_same_v<T, std::monostate>) return {Type::NULL_TYPE, true};
-            if constexpr (std::is_same_v<T, int64_t>)        return {Type::INT, false};
-            if constexpr (std::is_same_v<T, double>)         return {Type::FLOAT, false};
-            if constexpr (std::is_same_v<T, std::string>)    return {Type::STR, false};
-            if constexpr (std::is_same_v<T, char>)           return {Type::CHAR, false};
-            if constexpr (std::is_same_v<T, bool>)           return {Type::BOOL, false};
+            if constexpr (std::is_same_v<T, std::monostate>)
+                return {Type::NULL_TYPE, true};
+            if constexpr (std::is_same_v<T, int64_t>)
+                return {Type::INT, false};
+            if constexpr (std::is_same_v<T, double>)
+                return {Type::FLOAT, false};
+            if constexpr (std::is_same_v<T, std::string>)
+                return {Type::STR, false};
+            if constexpr (std::is_same_v<T, char>)
+                return {Type::CHAR, false};
+            if constexpr (std::is_same_v<T, bool>)
+                return {Type::BOOL, false};
             return {Type::NULL_TYPE, true};
         },
-    node->value
-    );
+        node->value);
 }
 
 TypeInfo SemanticVisitor::check_identifier(IdentifierExpr* node) {

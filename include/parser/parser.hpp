@@ -1,14 +1,14 @@
 #pragma once
-#include "vector"
-#include "memory"
-#include "tuple"
+#include <memory>
+#include <tuple>
+#include <vector>
 #include "lexer/token.hpp"
-#include "ast/node.hpp"
 #include "ast/expr.hpp"
+#include "ast/node.hpp"
 #include "ast/stmt.hpp"
 
 class Parser {
-private:
+  private:
     const std::vector<Token>& tokens_;
     size_t pos_ = 0;
 
@@ -34,7 +34,7 @@ private:
     void expect(TokenKind kind, const char* msg);
     bool check(TokenKind kind) const;
 
-public:
+  public:
     explicit Parser(const std::vector<Token>& tokens);
     std::unique_ptr<Program> parse_program();
 };
